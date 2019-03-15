@@ -1,0 +1,48 @@
+Movie
+	ID
+	Title
+	Genre
+	Synopsis
+	Lenght
+	Year
+	Country
+	MaturityRating
+	
+Show
+	ID
+	Title
+	Genre
+	Synopsis
+	FromYear
+	ToYear
+	Country
+	MaturityRating
+	
+Episode
+	ID
+	EpisodeNo
+	SeasonNo
+	Title
+	Synopsis
+	Lenght
+	FirstAirDate
+	
+
+User
+	ID
+	FirstName
+	LastName
+	UserName
+	Password
+	
+FavoriteMovie
+	ID
+	UserId
+	MovieId
+
+FavoriteShow
+	ID
+	UserId
+	ShowId
+
+	
