@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
         <meta charset="UTF-8">
         <title>{{ title }}</title>
@@ -9,25 +9,89 @@
 		<link rel="stylesheet" href="{{ url_for('static', filename='jquery-ui/jquery-ui.min.css') }}" />
 		<link rel="stylesheet" href="{{ url_for('static', filename='jquery-ui/jquery-ui.structure.min.css') }}" />
 		<link rel="stylesheet" href="{{ url_for('static', filename='jquery-ui/jquery-ui.theme.min.css') }}" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-          <a class="navbar-brand" href="#">Navbar</a>
-
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+<header class="site-header">
+     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <i class="fas fa-film"style="color:#DDDDDD"></i>
+        <a class="navbar-brand" href="#">TitreApp</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-              </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="\home">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="\movie">Movies <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="\tvshow">TV Shows <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="#">Favorite <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="#">My List <span class="sr-only">(current)</span></a>
+            </li>
+                <!--{% if title == 'Movie' or title =='TV Shows'%}-->
+                <!--<li class="nav-item dropdown">-->
+                    <!--<a class="nav-link dropdown-toggle" href="#" id="dropdown04"data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="openMenu()">-->
+                        <!--Genre-->
+                    <!--</a>-->
+                    <!--<div class="dropdown-menu" aria-labelledby="dropdown04">-->
+                        <!--<a class="dropdown-item" href="#">Action</a>-->
+                        <!--<a class="dropdown-item" href="#">Comedy</a>-->
+                        <!--<a class="dropdown-item" href="#">Classics</a>-->
+                        <!--<a class="dropdown-item" href="#">Aventure</a>-->
+                        <!--<a class="dropdown-item" href="#">Thriller</a>-->
+                    <!--</div>-->
+                <!--</li>-->
+                 <!--<li class="nav-item">-->
+                    <!--<div class="dropdown">-->
+                        <!--<button class="dropbtn" onclick="openMenu()">Dropdown-->
+                            <!--<i class="fa fa-caret-down"></i>-->
+                        <!--</button>-->
+                        <!--<div class="dropdown-content" id="menuGenre">-->
+                            <!--<a href="#">Action</a>-->
+                            <!--<a href="#">Comedy</a>-->
+                            <!--<a href="#">Classics</a>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                 <!--</li>-->
+                <!--{% elif title == 'TV Shows'%}-->
+                <!--<li class="nav-item dropdown">-->
+                    <!--<a class="nav-link dropdown-toggle" href="#" id="dropdown04"data-toggle="dropdown"-->
+                       <!--aria-haspopup="true" aria-expanded="false">-->
+                        <!--Genre-->
+                    <!--</a>-->
+                    <!--<div class="dropdown-menu" aria-labelledby="dropdown04">-->
+                        <!--<a class="dropdown-item" href="#">Action</a>-->
+                        <!--<a class="dropdown-item" href="#">Comedy</a>-->
+                        <!--<a class="dropdown-item" href="#">Classics</a>-->
+                        <!--<a class="dropdown-item" href="#">Fantasy</a>-->
+                    <!--</div>-->
+                <!--</li>-->
+                {% endif %}
             </ul>
-          </div>
-        </nav>
-
-        <div class="container-fluid">
-            <p>Hello There</p>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit"
+                        onclick='http://127.0.0.1:8000/action'>Search</button>
+            </form>
         </div>
+    </nav>
 
+</header>
 
+      <main role="main" class="jumbotron">
+          <div class = "container">
+               <div class="row">
+                    <div class="col-md-8">
+                        {% block content %}{% endblock %}
+                    </div>
+                </div>
+          </div>
+     </main>
 
 
         <!-- Placed at the end of the document so the pages load faster -->
