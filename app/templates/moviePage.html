@@ -1,0 +1,14 @@
+{% extends "index.html" %}
+{% block content %}
+    {% for movie in movies%}
+    {% if titleName == movie.title %}
+    {% if titleType == movie.type%}
+    <div align="middle">
+         <iframe width="560" height="315" src={{movie.link}} align = "middle" frameborder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen  ></iframe>
+    </div>
+    {%endif%}
+    {%endif%}
+    {% endfor %}
+{% endblock content %}

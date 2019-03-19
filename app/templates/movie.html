@@ -1,0 +1,45 @@
+{% extends "index.html" %}
+{% block content %}
+      <div class="row">
+                 <div class="col-lg">
+                    <div class="card" style="width: 18rem;">
+                      <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/1280px-Star_Wars_Logo.svg.png" alt="Card image cap">
+                      <div class="card-body">
+                        <h5 class="card-title">Action</h5>
+                        <p class="card-text"> Avengers, The Lord of the Rings, Indiana Jones, Rambo, Iron Man, The Hunger Games</p>
+                        <a href="/movie/Action" class="btn btn-primary" onclick="showAction()">See Action</a>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-lg">
+                    <div class="card" style="width: 18rem;">
+                      <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Pulp_Fiction_Logo.png" alt="Card image cap">
+                      <div class="card-body">
+                        <h5 class="card-title">Classics</h5>
+                        <p class="card-text"> SchindlersList, Back to the Future, E.T, Forrest Gump, Indiana Jones  </p>
+                        <a href="/movie/Classics" class="btn btn-primary" onclick="showClassics()">See Classics</a>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-lg">
+                    <div class="card" style="width: 18rem;">
+                      <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/21_Jump_Street.svg/1280px-21_Jump_Street.svg.png" alt="Card image cap">
+                      <div class="card-body">
+                        <h5 class="card-title">Comedy</h5>
+                        <p class="card-text"> Hot Fuzz, Bon Cop Bad Cop, 22 Jump Street, Pineapple Express</p>
+                        <a href="/movie/Comedy" class="btn btn-primary" onclick="showComedy()">See Comedy</a>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-lg">
+                    <div class="card" style="width: 18rem;">
+                      <img class="card-img-top" src="https://c1.staticflickr.com/8/7774/18027452780_f715b6cdf2_b.jpg" alt="Card image cap">
+                      <div class="card-body">
+                        <h5 class="card-title">Fantasy</h5>
+                        <p class="card-text">Chappie, Ex Machina</p>
+                        <a href="/movie/Fantasy" class="btn btn-primary"onclick="showFantasy()">See Fantasy movies</a>
+                      </div>
+                    </div>
+                </div>
+            </div>
+{% endblock content %}
