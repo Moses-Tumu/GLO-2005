@@ -1,6 +1,7 @@
 from flask import Flask, render_template
-
+from app.infrastructure import UserRepository
 application = Flask('FlaskTest')
+user_repo = UserRepository()
 
 
 @application.route('/')
@@ -10,22 +11,8 @@ def index():
 
 @application.route('/login')
 def login():
-    return "the login page"
-
-
-@application.route('/movies')
-def movies():
-    return "Great list of all movies"
-
-
-@application.route('/shows')
-def shows():
-    return "Great list of all shows"
-
-
-@application.route('/')
-def ok():
-    return "something Else"
+    users = user_repo.getUsers();
+    return users
 
 
 application.run('0.0.0.0', 5000)
