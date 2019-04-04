@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from app.infrastructure import UserRepository
+from infrastructure import UserRepository
 application = Flask('FlaskTest')
 user_repo = UserRepository()
 
@@ -11,7 +11,7 @@ def index():
 
 @application.route('/login')
 def login():
-    users = user_repo.getUsers();
+    users = user_repo.getUsers()
     return users
 
 
