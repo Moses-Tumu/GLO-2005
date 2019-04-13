@@ -3,10 +3,10 @@ from mysql.connector import connect
 
 class UserRepository:
     MYSQL_URI = "localhost"
-    PORT = "1337"
+    PORT = "3306"
     USERNAME = "root"
     PASSWORD = None
-    DATABASE_NAME = "what_is_it"
+    DATABASE_NAME = "universite"
 
     def __init__(self):
         self.connector = connect(host=self.MYSQL_URI, port=self.PORT, user=self.USERNAME, password=self.PASSWORD, database=self.DATABASE_NAME)
