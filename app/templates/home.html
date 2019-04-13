@@ -1,5 +1,8 @@
 {% extends "index.html" %}
 {% block content %}
-    <img class="bottom" src=https://stmed.net/sites/default/files/star-wars-episode-i%3A-the-phantom-menace-wallpapers-29924-6761173.jpg" />
-    <img class="top" src="https://d13ezvd6yrslxm.cloudfront.net/wp/wp-content/images/ex-machina-vikander.jpg"></img>
+    {%for homePageImage in homePageImage%}
+    <div class="col-sm-5 col-md-6">
+        <a href=""><img src={{homePageImage}} class="rounded float-left"  height="500" width="300"></a>
+    </div>
+    {%endfor%}
 {% endblock content %}
