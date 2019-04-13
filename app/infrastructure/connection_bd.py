@@ -2,14 +2,14 @@ from mysql.connector import connect
 
 
 class UserRepository:
-    MYSQL_URI = "localhost"
+    MYSQL_URI = "db"
     PORT = "3306"
     USERNAME = "root"
     PASSWORD = None
     DATABASE_NAME = "universite"
 
     def __init__(self):
-        self.connector = connect(host=self.MYSQL_URI, port=self.PORT, user=self.USERNAME, password=self.PASSWORD, database=self.DATABASE_NAME)
+        self.connector = connect(host=self.MYSQL_URI, port=self.PORT, user=self.USERNAME, password=self.PASSWORD)
 
     def getUsers(self):
         query = "SELECT * FROM users"

@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from infrastructure import UserRepository
-application = Flask('FlaskTest')
+application = Flask('GLO-2005')
 user_repo = UserRepository()
 
 
