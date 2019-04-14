@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 from collections import defaultdict
 import random
-from app.infrastructure import UserRepository
+from infrastructure import UserRepository
 application = Flask('GLO-2005')
 user_repo = UserRepository()
 

@@ -7,7 +7,10 @@ COPY requirements.txt ./
 RUN pip install -r requirements.txt
 
 COPY app.py ./
-COPY ./infrastructure ./infrastructure
 COPY ./bd_init ./bd_init
+COPY ./Image ./Image
+COPY ./infrastructure ./infrastructure
+COPY ./static ./static
+COPY ./templates ./templates
 
 CMD python app.py
