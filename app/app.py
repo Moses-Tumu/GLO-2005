@@ -2,6 +2,8 @@ from flask import Flask, render_template
 from collections import defaultdict
 import random
 from infrastructure import UserRepository
+import json
+
 application = Flask('GLO-2005')
 user_repo = UserRepository()
 
@@ -739,6 +741,11 @@ def list():
 @application.route('/favorite')
 def favorite():
     return render_template('favorite.html', title='Favorite')
+
+
+@application.route('/getusers')
+def getusers():
+    return json.dumps({'users': user_repo.getusers()})
 
 
 # @application.route('/action')

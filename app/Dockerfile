@@ -3,11 +3,10 @@ EXPOSE 5000
 
 WORKDIR /app
 
-COPY requirements.txt ./
+COPY requirements.txt /app
 RUN pip install -r requirements.txt
 
-COPY app.py ./
-COPY ./bd_init ./bd_init
+COPY app.py /app
 COPY ./Image ./Image
 COPY ./infrastructure ./infrastructure
 COPY ./static ./static
