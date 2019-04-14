@@ -8,5 +8,6 @@ RUN pip install -r requirements.txt
 
 COPY app.py ./
 COPY ./infrastructure ./infrastructure
+COPY ./bd_init ./bd_init
 
 CMD python app.py

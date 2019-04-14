@@ -11,7 +11,7 @@ class UserRepository:
     def __init__(self):
         self.connector = connect(host=self.MYSQL_URI, port=self.PORT, user=self.USERNAME, password=self.PASSWORD)
 
-    def getUsers(self):
+    def getusers(self):
         query = "SELECT * FROM users"
 
         cursor = self.connector()

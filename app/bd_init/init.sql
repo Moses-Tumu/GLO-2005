@@ -1,7 +1,7 @@
 CREATE DATABASE universite;
 use universite;
 
-CREATE TABLE users(
+CREATE TABLE IF NOT EXISTS users(
   id INT NOT NULL AUTO_INCREMENT,
   firstName VARCHAR(20),
   lastName VARCHAR(20),
