@@ -1,0 +1,12 @@
+{% extends "index.html" %}
+{% block content %}
+    <div class="row">
+         {% for movie in movies%}
+            {% if titleType == movie.type%}
+            <div class="col-sm-4">
+                <a href="{{movie.type}}/{{movie.title}}"><img src={{movie.image}} class="rounded float-left" height="400" width="400"></a>
+            </div>
+            {%endif%}
+        {% endfor %}
+     </div>
+{% endblock content %}
