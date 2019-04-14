@@ -1,7 +1,9 @@
 from flask import Flask, render_template
 from collections import defaultdict
 import random
-application = Flask('FlaskTest')
+from app.infrastructure import UserRepository
+application = Flask('GLO-2005')
+user_repo = UserRepository()
 
 
 ## linkMovie={"KillBill":"","TheMatrix":"",
@@ -678,6 +680,7 @@ favorite =[
         }
 ]
 
+
 @application.route('/')
 @application.route('/home')
 def index():
@@ -685,58 +688,65 @@ def index():
    #imageTwo=random(homePageImage)
    return render_template('home.html', title="Un Titre", homePageImage=homePageImage)
 
+
 @application.route('/movie')
 def movie():
     return render_template('movie.html', title='Movie', movieCard=movieCard)
+
 
 @application.route('/tvshow')
 def tvshow():
     return render_template('tvshow.html', title='TV Show', tvshowCard=tvshowCard)
 
+
 @application.route('/tvshow/<string:typeTvShow>')
 def tvshowType(typeTvShow):
    return render_template('tvshowType.html', titleType=typeTvShow, tvshows=tvshows)
+
 
 @application.route('/tvshow/<string:typeTvShow>/<string:tvShowName>')
 def tvshowPage(typeTvShow,tvshowName):
    return render_template('tvshowPage.html', titleName=tvshowName, titleType=typeTvShow, tvshowLink=tvshowLink)
 
 
-
-#type page
+# type page
 @application.route('/movie/<string:typeMovie>')
 def movieType(typeMovie):
     return render_template('movieType.html', titleType=typeMovie, movies=movies)
 
-#template for movie trailer
+
+# template for movie trailer
 @application.route('/movie/<string:typeMovie>/<string:movieName>')
 def moviePage(typeMovie,movieName):
     return render_template('moviePage.html', titleName=movieName, titleType=typeMovie, movies=movies)
+
 
 @application.route('/login')
 def login():
     return render_template('login.html', title='Login Page')
 
+
 @application.route('/createaccount')
 def createaccount():
     return render_template('createAccount.html', title='Create Account')
+
 
 @application.route('/list')
 def list():
     return  render_template('list.html', title='List')
 
+
 @application.route('/favorite')
 def favorite():
     return render_template('favorite.html', title='Favorite')
 
+
 # @application.route('/action')
 # def action():
 #     return render_template('action.html', title='Action')
-
 # @application.route('/fantasy')
 # def fantasy():
 #     return render_template('fantasy.html', title='Fantasy')
-
 # @application.route('/comedy')
 # def comedy():
 #     return render_template('comedy.html', title='Comedy')
@@ -744,8 +754,6 @@ def favorite():
 # @application.route('/classics')
 # def classics():
 #     return render_template('classics.html', title='Classics')
-
-
 
 #
 # @application.route('/movies')
@@ -762,6 +770,5 @@ def favorite():
 # def ok():
 #     return "something Else"
 
-
-#application.run('0.0.0.0', 5000)
-application.run('127.0.0.1', 5000)
+application.run('0.0.0.0', 5000)
+# application.run('127.0.0.1', 5000)
