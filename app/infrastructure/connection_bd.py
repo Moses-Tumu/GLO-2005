@@ -19,6 +19,7 @@ class UserRepository:
             reader = csv.reader(csvFile, delimiter=',')
             for user in reader:
                 firstName = user[0]
+                print(firstName)
                 lastName = user[1]
                 userName = user[3]
                 password = user[4]
