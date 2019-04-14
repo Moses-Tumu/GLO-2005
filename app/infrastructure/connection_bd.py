@@ -1,4 +1,6 @@
 from mysql.connector import connect
+from hashlib import sha256
+import csv
 
 
 class UserRepository:
@@ -11,6 +13,30 @@ class UserRepository:
 # TODO: Modifier les elements de retour pour retourner les bons éléments.
     def __init__(self):
         self.connector = connect(host=self.MYSQL_URI, port=self.PORT, user=self.USERNAME, password=self.PASSWORD, database=self.DATABASE_NAME)
+        cursor = self.connector.cursor()
+
+        with open('/app/users.csv', newline='') as csvFile:
+            reader = csv.reader(csvFile, )
+            for user in reader:
+                firstName = user[0]
+                lastName = user[1]
+                userName = user[3]
+                password = user[4]
+                mdpHache = sha256(password).hexdigest()
+
+                select_query = ("SELECT Username FROM Users WHERE Username = %s")
+                select_value = userName
+                cursor.execute(select_query, select_value)
+
+                founduser = [{'UserName': users[0]} for users in cursor]
+
+                if len(founduser) < 1:
+                    query = ("INSERT INTO User (FirstName, LastName, Username, Password)"
+                             "VALUES (%s,%s,%s,%s)")
+                    values = (firstName, lastName, userName, mdpHache)
+                    cursor.execute(query, values)
+
+        csvFile.close()
 
     def getusers(self):
         query = "SELECT * FROM User"
