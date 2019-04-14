@@ -15,8 +15,8 @@ class UserRepository:
         self.connector = connect(host=self.MYSQL_URI, port=self.PORT, user=self.USERNAME, password=self.PASSWORD, database=self.DATABASE_NAME)
         cursor = self.connector.cursor()
 
-        with open('/app/users.csv', newline='') as csvFile:
-            reader = csv.reader(csvFile, )
+        with open('/app/users.csv') as csvFile:
+            reader = csv.reader(csvFile, delimiter=',')
             for user in reader:
                 firstName = user[0]
                 lastName = user[1]
