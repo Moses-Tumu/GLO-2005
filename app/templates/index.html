@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/html">
     <head>
         <meta charset="UTF-8">
         <title>{{ title }}</title>
@@ -9,25 +9,237 @@
 		<link rel="stylesheet" href="{{ url_for('static', filename='jquery-ui/jquery-ui.min.css') }}" />
 		<link rel="stylesheet" href="{{ url_for('static', filename='jquery-ui/jquery-ui.structure.min.css') }}" />
 		<link rel="stylesheet" href="{{ url_for('static', filename='jquery-ui/jquery-ui.theme.min.css') }}" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-          <a class="navbar-brand" href="#">Navbar</a>
 
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-              </li>
-            </ul>
+
+<header class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand mr-0 mr-md-2" href="\home"><i class="fas fa-film " width="36" height="36" ></i></a>
+    <div class="navbar-nav-scroll">
+      <ul class="navbar-nav bd-navbar-nav flex-row">
+        <li class="nav-item"><a class="nav-link" href="/home"> Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="/movie"><i class="fas fa-film"></i> Movies</a></li>
+        <li class="nav-item"><a class="nav-link" href="/tvshow"> <i class="fas fa-tv"></i> TV Shows</a></li>
+        <li class="nav-item"><a class="nav-link" href="/favorite"><i class="fas fa-bookmark"></i> Favorite</a></li>
+        <li class="nav-item"><a class="nav-link" href="/list"><i class="fas fa-list"></i> List</a></li>
+        {%if title=='Movie' %}
+         <li class="dropdown">
+             <div class="navbar-form bg-dark">
+                 <div class="btn-group">
+                    <a class="nav-link" data-toggle="dropdown">Genre <span class="caret"></span></a>
+                    <ul class="dropdown-menu bg-dark">
+                         <a class="dropdown-item" style="color:grey" href="#">Actions</a>
+                        <a class="dropdown-item" style="color:grey" href="#">Classics</a>
+                        <a class="dropdown-item" style="color:grey" href="#">Comedy</a>
+                        <a class="dropdown-item" style="color:grey" href="#">Fantasy</a>
+                        <a class="dropdown-item" style="color:grey" href="#">Thriller</a>
+                        <a class="dropdown-item" style="color:grey" href="#">Kids</a>
+                    </ul>
+                </div>
+             </div>
+         </li>
+          {%elif title=='TV Show'%}
+           <li class="dropdown">
+             <div class="navbar-form bg-dark">
+                 <div class="btn-group">
+                    <a class="nav-link" data-toggle="dropdown">Genre <span class="caret"></span></a>
+                    <ul class="dropdown-menu bg-dark">
+                        <a class="dropdown-item" style="color:grey" href="/tvshow/Drama">Drama</a>
+                        <a class="dropdown-item" style="color:grey" href="/tvshow/Crime">Crime</a>
+                        <a class="dropdown-item" style="color:grey" href="/tvshow/Fantasy">Fantasy</a>
+                        <a class="dropdown-item" style="color:grey" href="/tvshow/Action">Action</a>
+                        <a class="dropdown-item" style="color:grey" href="/tvshow/Comedy">Comedy</a>
+                        <a class="dropdown-item" style="color:grey" href="/tvshow/Thriller">Thriller</a>
+                    </ul>
+                </div>
+             </div>
+         </li>
+          {%endif%}
+      </ul>
+    </div>
+
+    <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex ">
+        <li class="dropdown">
+             <div class="navbar-form bg-dark">
+                 <!--<div class="btn-group">-->
+                     <a class="nav-link " data-toggle="dropdown"><i class="fas fa-user "></i><span class="caret"></span></a>
+                    <ul class="dropdown-menu bg-dark">
+                        <a class="dropdown-item" style="color:grey" href="/login">Login</a>
+                        <a class="dropdown-item" style="color:grey" href="/createaccount">Create Account</a>
+                       <a class="dropdown-item" style="color:grey"  href="#"><i class="fas fa-sign-out-alt"></i>Disconnect</a></li>
+                    </ul>
+                <!--</div>-->
+             </div>
+        </li>
+    </ul>
+
+    <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="searchInBD">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="search" id="goTo">Search</button>
+    </form>
+
+</header>
+
+<!--<div class="header">-->
+  <!--<a href="\home" class="logo">TitleApp</a>-->
+  <!--<div class="header-right">-->
+    <!--<a class="active" href="#home">Home</a>-->
+    <!--<a href="#contact">Contact</a>-->
+    <!--<a href="#about">About</a>-->
+  <!--</div>-->
+<!--</div>-->
+
+
+
+
+      <!--<li class="dropdown">-->
+          <!--<div class="user-menu">-->
+              <!--<div class="btn-group">-->
+              <!--<a class="nav-link" data-toggle="dropdown" href="#"><i class="fas fa-user "></i><span class="caret"></span></a>-->
+          <!--<ul class="dropdown-content">-->
+               <!--<li><a href="\login">Login</a></li>-->
+                <!--<li><a href="\createaccount">Create Account</a></li>-->
+          <!--</ul>-->
+                  <!--</div>-->
+        <!--</div>-->
+      <!--</li>-->
+
+    <!--</ul>-->
+
+
+<!--<ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">-->
+    <!--<div class="dropdown">-->
+        <!--<i class=" user-menu fas fa-user"></i>-->
+        <!--<div class="dropdown-content">-->
+            <!--<a href="\login">Login</a>-->
+             <!--<a href="\createaccount">Create Account</a>-->
+        <!--</div>-->
+    <!--</div>-->
+      <!--</ul>-->
+
+          <!--<ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">-->
+      <!--<li class="nav-item"><a class="nav-link" href="\login"><i class="fas fa-user"></i></a></li>-->
+    <!--</ul>-->
+
+        <!--<ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">-->
+        <!--<div class = "actions">-->
+             <!--<div class="dropdown">-->
+                <!--<button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">-->
+                <!--<i class="fas fa-user"></i>-->
+                <!--</button>-->
+            <!--<ul id="actions">-->
+                <!--<div class="dropdown-menu">-->
+                <!--Stuff...-->
+                <!--</div>-->
+            <!--</ul>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--</ul>-->
+
+ <!--<ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">-->
+    <!--<div class="dropdown">-->
+
+        <!--&lt;!&ndash;Trigger&ndash;&gt;-->
+        <!--<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"-->
+          <!--aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i></button>-->
+
+
+        <!--&lt;!&ndash;Menu&ndash;&gt;-->
+        <!--<div class="dropdown-menu dropdown-primary">-->
+          <!--<a class="dropdown-item" href="#">Login</a>-->
+          <!--<a class="dropdown-item" href="#">Create Account</a>-->
+        <!--</div>-->
+    <!--</div>-->
+ <!--</ul>-->
+
+
+    <!--<ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">-->
+      <!--<li class="nav-item"><a class='btn btn-primary dropdown-toggle' href="#" data-toggle='dropdown'><i class="fas fa-user"></i></a></li>-->
+    <!--</ul>-->
+    <!--<ul id='dropdown' class='dropdown-menu'>-->
+        <!--<li><a href="\login">Login</a></li>-->
+        <!--<li><a href="\createAccount">Create Account</a></li>-->
+    <!--</ul>-->
+
+
+
+<!--<header class="site-header">-->
+     <!--<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">-->
+        <!--<i class="fas fa-film"style="color:#DDDDDD"></i>-->
+        <!--<a class="navbar-brand" href="#">TitreApp</a>-->
+        <!--<div class="collapse navbar-collapse" id="navbarSupportedContent">-->
+            <!--<ul class="navbar-nav mr-auto">-->
+            <!--<li class="nav-item">-->
+                <!--<a class="nav-link active" href="\home">Home <span class="sr-only">(current)</span></a>-->
+            <!--</li>-->
+            <!--<li class="nav-item">-->
+                <!--<a class="nav-link active" href="\movie">Movies <span class="sr-only">(current)</span></a>-->
+            <!--</li>-->
+            <!--<li class="nav-item">-->
+                <!--<a class="nav-link active" href="\tvshow">TV Shows <span class="sr-only">(current)</span></a>-->
+            <!--</li>-->
+            <!--<li class="nav-item">-->
+                <!--<a class="nav-link active" href="#">Favorite <span class="sr-only">(current)</span></a>-->
+            <!--</li>-->
+            <!--<li class="nav-item">-->
+                <!--<a class="nav-link active" href="#">My List <span class="sr-only">(current)</span></a>-->
+            <!--</li>-->
+            <!--</ul>-->
+        <!--</div>-->
+            <!--<form class="form-inline my-2 my-lg-0">-->
+                <!--<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
+                <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit"-->
+                        <!--onclick="search()">Search</button>-->
+            <!--</form>-->
+        <!--</div>-->
+    <!--</nav>-->
+
+<!--</header>-->
+
+
+
+
+
+
+<!--<header class="site-header">-->
+    <!--<nav class="navbar navbar-expand-lg navbar-light bg-light">-->
+    <!--<a class="navbar-brand" href="\home">Navbar</a>-->
+        <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
+        <!--<span class="navbar-toggler-icon"></span>-->
+        <!--</button>-->
+       <!--<div id="menu-nav">-->
+            <!--<div id="navigation-bar">-->
+                <!--<ul>-->
+                <!--<a class="nav-item" href="\home"><i class="fa fa-home"></i><span> Home </span></a>-->
+                <!--<a class="nav-item" href="\movie"><i class="fas fa-film"></i><span> Movies</span></a>-->
+                <!--<a class="nav-item" href="\tvshow"><i class="fas fa-tvr"></i><span> TV Shows </span></a>-->
+                <!--<a class="nav-item" href="\favorite"><i class="fas fa-bookmark"></i><span> Favorite </span></a>-->
+                <!--<a class="nav-item" href="\list"><i class="fas fa-list-ul"></i><span> List </span></a>-->
+                <!--<a class="nav-item" href="#" onclick="hideandshow('#search-bar')"><i class="fa fa-search"></i><span> Search </span></a>-->
+                <!--<a class="nav-item" href="\login"><i class="fas fa-user"></i><span> Login </span></a>-->
+                <!--</ul>-->
+            <!--</div>-->
+        <!--</div>-->
+<!--</header>-->
+    <!--<div id="search-bar">-->
+        <!--<form>-->
+            <!--<input type="text" placeholder="Enter your query and hit Enter" />-->
+        <!--</form>-->
+    <!--</div>-->
+    <!--</div>-->
+
+
+
+      <main role="main" class="jumbotron jumbotron-fluid" >
+          <div class = "container">
+               <div class="row">
+                        {% block content %}{% endblock %}
+                </div>
           </div>
-        </nav>
-
-        <div class="container-fluid">
-            <p>Hello There</p>
-        </div>
-
-
+     </main>
 
 
         <!-- Placed at the end of the document so the pages load faster -->
@@ -35,5 +247,6 @@
         <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
         <script src="{{ url_for('static', filename='jquery/jquery.min.js') }}"></script>
         <script src="{{ url_for('static', filename='jquery-ui/jquery-ui.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.bundle.js ')}}"></script>
     </body>
 </html>

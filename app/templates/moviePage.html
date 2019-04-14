@@ -1,0 +1,24 @@
+{% extends "index.html" %}
+{% block content %}
+    {% for movie in movies%}
+    {% if titleName == movie.title %}
+    {% if titleType == movie.type%}
+
+    <div class="container">
+        <h2><font color="#006699">{{movie.movie}}</font></h2>
+        <iframe width="560" height="315" src={{movie.link}} align = "middle" frameborder="0"
+                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                 allowfullscreen  ></iframe>
+    </div>
+    <div class="aside">
+        <ul class="navbar fixed-bottom navbar-light bg-dark">
+            <a class="nav-link" onclick="addFavorite"><i class="fas fa-bookmark" style="font-size:30px;color:grey"></i></a>
+            <a class="nav-link" onclick="addList"><i class="fas fa-plus" style="font-size:30px;color:grey"></i></a>
+        </ul>
+    </div>
+    {%endif%}
+    {%endif%}
+    {% endfor %}
+{% endblock content %}
+
+

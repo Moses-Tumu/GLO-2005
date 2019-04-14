@@ -1,0 +1,17 @@
+{% extends "index.html" %}
+{% block content %}
+      <div class="row">
+           {% for tvshowCard in tvshowCard%}
+                 <div class="col-lg">
+                    <div class="card" style="width: 18rem;">
+                      <img class="card-img-top" src={{tvshowCard.image}} alt="Card image cap">
+                      <div class="card-body">
+                        <h5 class="card-title">{{tvshowCard.type}}</h5>
+                        <p class="card-text"> {{tvshowCard.description}}</p>
+                        <a href="/tvshow/{{tvshowCard.type}}" class="btn bg-dark" style="color:grey">{{tvshowCard.textInButton}}</a>
+                      </div>
+                    </div>
+                </div>
+          {% endfor %}
+      </div>
+{% endblock content %}
