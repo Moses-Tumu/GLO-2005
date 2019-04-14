@@ -14,3 +14,7 @@ Voir [ici](https://www.wintellect.com/containerize-python-app-5-minutes/) pour p
 2. Depuis un terminal **(lui de PyCharm fait la job)** aller à la racine du projet → /GLO-2005
 3. Builder l'app avec la commande suivante → ``docker-compose build``
 4. Lancer le container → ``docker-compose up``
+
+#
+Si jamais il y a une erreur de ce genre ``mysql.connector.errors.InterfaceError: 2003: Can't connect to MySQL server on 'db:3306' (111 Connection refused)``
+il suffit simplement d'attendre que le container mysql termine d'initialiser la BD, puis de refaire ``docker-compose up``
