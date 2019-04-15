@@ -31,6 +31,7 @@ CREATE TABLE Movie (
  Country VARCHAR(255) NOT NULL,
  MaturityRating VARCHAR(255) NOT NULL,
  ImageUrl VARCHAR(255),
+ VideoUrl VARCHAR(255),
  PRIMARY KEY (ShowId));
  
  CREATE TABLE Episode (
