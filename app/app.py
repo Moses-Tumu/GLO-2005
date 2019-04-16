@@ -1,12 +1,27 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect
+from flask_login import LoginManager,current_user, login_user, logout_user, login_required, UserMixin
 from collections import defaultdict
 import random
 from infrastructure import UserRepository
 import json
+from hashlib import sha256
 
 application = Flask('GLO-2005')
+login_manager = LoginManager()
+login_manager.init_app(application)
+login_manager.login_view = ''
+application.config['SECRET_KEY'] = "justsomecasualsecretkeyveryuniqueandsecret"
 user_repo = UserRepository()
 
+
+class User(UserMixin):
+    def __init__(self, username):
+        self.id = username
+
+
+@login_manager.user_loader
+def load_user(user_username):
+    return User(user_username)
 
 ## linkMovie={"KillBill":"","TheMatrix":"",
 ##            "PulpFiction":"https://www.youtube.com/embed/s7EdQ4FqbhY","ForrestGump":"https://www.youtube.com/embed/uPIEn0M8su0",
@@ -723,9 +738,31 @@ def moviePage(typeMovie,movieName):
     return render_template('moviePage.html', titleName=movieName, titleType=typeMovie, movies=movies)
 
 
-@application.route('/login')
+@application.route('/login', methods=["GET"])
 def login():
     return render_template('login.html', title='Login Page')
+
+
+@application.route('/login', methods=["POST"])
+def log_user():
+    username = request.form['username']
+    password = request.form['password']
+    print(password)
+
+    user = user_repo.getuser(username)
+    print(user)
+
+    if user['password'] == sha256(password.encode()).hexdigest():
+        login_user(User(username))
+        return redirect('/home')
+    else:
+        return render_template('login.html', title='Login Page')
+
+
+@application.route('/logout')
+def logout():
+    logout_user()
+    return redirect('/home')
 
 
 @application.route('/createaccount')
@@ -735,7 +772,7 @@ def createaccount():
 
 @application.route('/list')
 def list():
-    return  render_template('list.html', title='List')
+    return render_template('list.html', title='List')
 
 
 @application.route('/favorite')
@@ -746,6 +783,12 @@ def favorite():
 @application.route('/getusers')
 def getusers():
     return json.dumps({'users': user_repo.getusers()})
+
+
+@application.route('/protected')
+@login_required
+def protected():
+    return "protected"
 
 
 # @application.route('/action')

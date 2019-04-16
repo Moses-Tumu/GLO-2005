@@ -49,6 +49,15 @@ class UserRepository:
 
         return [{'LastName': user[2], 'FirstName': user[1], 'UserName':user[2]} for user in cursor]
 
+    def getuser(self, username):
+        query = "SELECT * FROM User WHERE UserName = %s"
+        value = (username,)
+
+        cursor = self.connector.cursor()
+        cursor.execute(query, value)
+        user = cursor.fetchone()
+        return {'id': user[0], 'firstname': user[1], 'lastname': user[2], 'username': user[3], 'password': user[4], }
+
     def getmovies(self):
         query = "SELECT * FROM Movie"
 
