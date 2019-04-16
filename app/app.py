@@ -770,6 +770,23 @@ def createaccount():
     return render_template('createAccount.html', title='Create Account')
 
 
+@application.route('/createaccount', methods=["POST"])
+def createuser():
+    firstname = request.form['firstname']
+    lastname = request.form['lastname']
+    username = request.form['username']
+    password = request.form['password']
+
+    hashpwd = sha256(password.encode()).hexdigest()
+
+    user_repo.createuser(firstname, lastname, username, hashpwd)
+    connecteduser = user_repo.getuser(username)
+
+    login_user(User(connecteduser['username']))
+
+    return redirect('/home')
+
+
 @application.route('/list')
 def list():
     return render_template('list.html', title='List')

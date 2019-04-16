@@ -42,7 +42,7 @@ CREATE TABLE Movie (
  EpisodeNo INT,
  SeasonNo  INT,
  Length INT,
- FirstAirDate DATE,
+ FirstAirDate INT,
  ShowId INT NOT NULL,
  PRIMARY KEY (EpisodeId),
  FOREIGN KEY (ShowId) REFERENCES TvShow(ShowId));

@@ -60,9 +60,13 @@ class UserRepository:
             images.append(image.readline())
         for x in range(0, 93):
             synopsis.append(syno.readline())
-        sql = "INSERT INTO Movie (Title, GenreId, Synopsis, Length, Year, Country, MaturityRating, VideoUrl ,ImageUrl) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        sql = ("INSERT INTO Movie (Title, GenreId, Synopsis, Length, Year, Country, MaturityRating, VideoUrl ,ImageUrl)"
+               "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)")
         for x in range(0, 150):
-            val = (movies[random.randint(0, 84)], random.randint(1, 10), synopsis[random.randint(0, 92)], str(random.randint(0, 10)), str(random.randint(1990, 2015)), countrys[random.randint(0, 99)], str(random.randint(7, 18)), 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', images[random.randint(0, 15)])
+            val = (movies[random.randint(0, 84)], random.randint(1, 10), synopsis[random.randint(0, 92)],
+                   str(random.randint(0, 10)), random.randint(1990, 2015), countrys[random.randint(0, 99)],
+                   str(random.randint(7, 18)), 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+                   images[random.randint(0, 15)])
             cursor.execute(sql, val)
             self.connector.commit()
 
@@ -76,11 +80,12 @@ class UserRepository:
             id = show['Id']
 
             insert_query = ("INSERT INTO Episode (Title, Synopsis, EpisodeNo, SeasonNo, Length, FirstAirDate, ShowId)"
-                            "VALUES(%s,%s,%s,%s,%s,%s,%s,%s)")
+                            "VALUES(%s,%s,%s,%s,%s,%s,%s)")
             numberOfEpisodes = random.randint(1, 9)
 
             for i in range(numberOfEpisodes):
-                values = (movies[random.randint(0, 84)], synopsis[random.randint(0, 92)], i, random.randint(0, 5), random.randint(0, 48), random.randint(1986, 2019), id)
+                values = (movies[random.randint(0, 84)], synopsis[random.randint(0, 92)], i, random.randint(0, 5),
+                          random.randint(0, 48), random.randint(1986, 2019), id)
                 cursor.execute(insert_query, values)
                 self.connector.commit()
 
@@ -152,3 +157,12 @@ class UserRepository:
         cursor.execute(query, query_values)
 
         return [{'Name': genre[0]} for genre in cursor]
+
+    def createuser(self, firstname, lastname, username, password):
+        query = ("INSERT INTO User (FirstName, LastName, UserName, Password)"
+                 "VALUES(%s,%s,%s,%s)")
+        values = (firstname, lastname, username, password)
+
+        cursor = self.connector.cursor()
+        cursor.execute(query, values)
+        self.connector.commit()
