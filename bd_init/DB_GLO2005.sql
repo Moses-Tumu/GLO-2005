@@ -38,11 +38,11 @@ CREATE TABLE Movie (
  CREATE TABLE Episode (
  EpisodeId INT NOT NULL AUTO_INCREMENT,
  Title VARCHAR(255),
- Synopsis VARCHAR(255),
+ Synopsis VARCHAR(500),
  EpisodeNo INT,
  SeasonNo  INT,
  Length INT,
- FirstAirDate DATE,
+ FirstAirDate INT,
  ShowId INT NOT NULL,
  PRIMARY KEY (EpisodeId),
  FOREIGN KEY (ShowId) REFERENCES TvShow(ShowId));
