@@ -1,4 +1,6 @@
 from mysql.connector import connect
+from hashlib import sha256
+import csv
 
 
 class UserRepository:
@@ -11,6 +13,33 @@ class UserRepository:
 # TODO: Modifier les elements de retour pour retourner les bons éléments.
     def __init__(self):
         self.connector = connect(host=self.MYSQL_URI, port=self.PORT, user=self.USERNAME, password=self.PASSWORD, database=self.DATABASE_NAME)
+        cursor = self.connector.cursor()
+
+    # Ajoute des utilisateur fictive depuis un fichier csv
+        with open('/app/users.csv') as csvFile:
+            reader = csv.DictReader(csvFile)
+            for user in reader:
+                firstName = user['prenom']
+                lastName = user['nom']
+                userName = user['username']
+                password = user['password']
+                mdpHache = sha256(password.encode()).hexdigest()
+
+                select_query = ("SELECT Username FROM User WHERE Username = %s")
+                select_value = (userName,)
+                cursor.execute(select_query, select_value)
+
+                founduser = [{'UserName': users[0]} for users in cursor]
+
+                if len(founduser) < 1:
+                    query = ("INSERT INTO User (FirstName, LastName, Username, Password)"
+                             "VALUES (%s,%s,%s,%s)")
+                    print(query)
+                    values = (firstName, lastName, userName, mdpHache,)
+                    cursor.execute(query, values)
+                    self.connector.commit()
+
+        csvFile.close()
 
     def getusers(self):
         query = "SELECT * FROM User"
@@ -19,6 +48,15 @@ class UserRepository:
         cursor.execute(query)
 
         return [{'LastName': user[2], 'FirstName': user[1], 'UserName':user[2]} for user in cursor]
+
+    def getuser(self, username):
+        query = "SELECT * FROM User WHERE UserName = %s"
+        value = (username,)
+
+        cursor = self.connector.cursor()
+        cursor.execute(query, value)
+        user = cursor.fetchone()
+        return {'id': user[0], 'firstname': user[1], 'lastname': user[2], 'username': user[3], 'password': user[4], }
 
     def getmovies(self):
         query = "SELECT * FROM Movie"
