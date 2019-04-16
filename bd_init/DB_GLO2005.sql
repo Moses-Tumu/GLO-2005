@@ -17,6 +17,7 @@ CREATE TABLE Movie (
  Country VARCHAR(255) NOT NULL,
  MaturityRating VARCHAR(255) NOT NULL,
  ImageUrl VARCHAR(255),
+ VideoUrl VARCHAR(255),
  GenreId INT NOT NULL,
  PRIMARY KEY (MovieId),
  FOREIGN KEY (GenreId) REFERENCES Genre(GenreId));

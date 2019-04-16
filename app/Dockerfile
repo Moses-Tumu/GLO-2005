@@ -12,5 +12,6 @@ COPY ./Image ./Image
 COPY ./infrastructure ./infrastructure
 COPY ./static ./static
 COPY ./templates ./templates
+COPY ./generate_table ./
 
 CMD python app.py

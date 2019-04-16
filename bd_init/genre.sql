@@ -1,10 +1,3 @@
-CREATE TABLE Genre(
-  GenreId INT NOT NULL AUTO_INCREMENT,
-  Name VARCHAR(50) NOT NULL,
-  PRIMARY KEY (GenreId)
-);
-
-
 INSERT INTO Genre
 VALUES (1,'Drama')
 ,(2,'Thriller')

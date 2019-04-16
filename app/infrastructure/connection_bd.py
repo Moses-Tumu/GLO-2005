@@ -1,5 +1,6 @@
 from mysql.connector import connect
 from hashlib import sha256
+import random
 import csv
 
 
@@ -40,6 +41,34 @@ class UserRepository:
                     self.connector.commit()
 
         csvFile.close()
+
+    # Ajoute des films de manière aléatoire
+        country = open("country.txt", "r")
+        movie = open("movies.txt", "r")
+        image = open("imageurl.txt", "r")
+        syno = open("synopsis.txt", "r")
+
+        countrys = []
+        movies = []
+        images = []
+        synopsis = []
+
+        for x in range(0, 100):
+            countrys.append(country.readline())
+        for x in range(0, 85):
+            movies.append(movie.readline())
+        for x in range(0, 17):
+            images.append(image.readline())
+        for x in range(0, 93):
+            synopsis.append(syno.readline())
+        sql = "INSERT INTO Movie (Title, GenreId, Synopsis, Length, Year, Country, MaturityRating, VideoUrl ,ImageUrl) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        for x in range(0, 150):
+            val = (movies[random.randint(0, 84)], 0, synopsis[random.randint(0, 92)], str(random.randint(0, 10)),
+                   str(random.randint(1990, 2015)), countrys[random.randint(0, 99)], str(random.randint(7, 18)),
+                   'https://www.youtube.com/watch?v=dQw4w9WgXcQ', images[random.randint(0, 15)])
+            cursor.execute(sql, val)
+
+        self.connector.comit()
 
     def getusers(self):
         query = "SELECT * FROM User"
