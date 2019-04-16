@@ -5,6 +5,7 @@ WORKDIR /app
 
 COPY requirements.txt /app
 COPY users.csv /app
+COPY wait-for-it.sh /app
 RUN pip install -r requirements.txt
 
 COPY app.py /app

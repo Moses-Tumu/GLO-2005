@@ -1,3 +1,5 @@
+USE GLO2005;
+
 INSERT INTO Genre
 VALUES (1,'Drama')
 ,(2,'Thriller')

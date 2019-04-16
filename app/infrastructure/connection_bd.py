@@ -35,7 +35,6 @@ class UserRepository:
                 if len(founduser) < 1:
                     query = ("INSERT INTO User (FirstName, LastName, Username, Password)"
                              "VALUES (%s,%s,%s,%s)")
-                    print(query)
                     values = (firstName, lastName, userName, mdpHache,)
                     cursor.execute(query, values)
                     self.connector.commit()
@@ -63,12 +62,10 @@ class UserRepository:
             synopsis.append(syno.readline())
         sql = "INSERT INTO Movie (Title, GenreId, Synopsis, Length, Year, Country, MaturityRating, VideoUrl ,ImageUrl) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
         for x in range(0, 150):
-            val = (movies[random.randint(0, 84)], 0, synopsis[random.randint(0, 92)], str(random.randint(0, 10)),
-                   str(random.randint(1990, 2015)), countrys[random.randint(0, 99)], str(random.randint(7, 18)),
-                   'https://www.youtube.com/watch?v=dQw4w9WgXcQ', images[random.randint(0, 15)])
+            val = (movies[random.randint(0, 84)], random.randint(1, 10), synopsis[random.randint(0, 92)], str(random.randint(0, 10)), str(random.randint(1990, 2015)), countrys[random.randint(0, 99)], str(random.randint(7, 18)), 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', images[random.randint(0, 15)])
             cursor.execute(sql, val)
+            self.connector.commit()
 
-        self.connector.comit()
 
     def getusers(self):
         query = "SELECT * FROM User"

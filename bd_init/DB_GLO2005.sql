@@ -10,12 +10,12 @@ CREATE TABLE Genre(
 
 CREATE TABLE Movie (
  MovieId INT NOT NULL AUTO_INCREMENT,
- Title VARCHAR(255) NOT NULL,
- Synopsis VARCHAR(255) NOT NULL,
- Length INT NOT NULL,
- Year  INT NOT NULL,
- Country VARCHAR(255) NOT NULL,
- MaturityRating VARCHAR(255) NOT NULL,
+ Title VARCHAR(255),
+ Synopsis VARCHAR(500),
+ Length INT,
+ Year  INT,
+ Country VARCHAR(255),
+ MaturityRating VARCHAR(255),
  ImageUrl VARCHAR(255),
  VideoUrl VARCHAR(255),
  GenreId INT NOT NULL,
@@ -24,29 +24,28 @@ CREATE TABLE Movie (
  
  CREATE TABLE TvShow (
  ShowId INT NOT NULL AUTO_INCREMENT,
- Title VARCHAR(255) NOT NULL,
+ Title VARCHAR(255),
  GenreId INT NOT NULL,
- Synopsis VARCHAR(255) NOT NULL,
- FromYear INT NOT NULL,
- ToYear  INT NOT NULL,
- Country VARCHAR(255) NOT NULL,
- MaturityRating VARCHAR(255) NOT NULL,
+ Synopsis VARCHAR(510),
+ FromYear INT NULL,
+ ToYear  INT NULL,
+ Country VARCHAR(255),
+ MaturityRating VARCHAR(255),
  ImageUrl VARCHAR(255),
  VideoUrl VARCHAR(255),
  PRIMARY KEY (ShowId));
  
  CREATE TABLE Episode (
  EpisodeId INT NOT NULL AUTO_INCREMENT,
- Title VARCHAR(255) NOT NULL,
- Synopsis VARCHAR(255) NOT NULL,
- EpisodeNo INT NOT NULL,
- SeasonNo  INT NOT NULL,
- Length INT NOT NULL,
+ Title VARCHAR(255),
+ Synopsis VARCHAR(255),
+ EpisodeNo INT,
+ SeasonNo  INT,
+ Length INT,
  FirstAirDate DATE,
  ShowId INT NOT NULL,
  PRIMARY KEY (EpisodeId),
- FOREIGN KEY (ShowId) REFERENCES TvShow(ShowId),
- FOREIGN KEY (GenreId) REFERENCES Genre(GenreId));
+ FOREIGN KEY (ShowId) REFERENCES TvShow(ShowId));
 
  CREATE TABLE User (
  UserId INT NOT NULL AUTO_INCREMENT,
