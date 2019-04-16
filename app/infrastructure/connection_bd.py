@@ -66,6 +66,24 @@ class UserRepository:
             cursor.execute(sql, val)
             self.connector.commit()
 
+    # Ajout d'episodes
+        select_query = ("SELECT ShowId FROM TvShow")
+        cursor.execute(select_query)
+
+        foundIds = [{'Id': shows[0]} for shows in cursor]
+
+        for show in foundIds:
+            id = show['Id']
+
+            insert_query = ("INSERT INTO Episode (Title, Synopsis, EpisodeNo, SeasonNo, Length, FirstAirDate, ShowId)"
+                            "VALUES(%s,%s,%s,%s,%s,%s,%s,%s)")
+            numberOfEpisodes = random.randint(1, 9)
+
+            for i in range(numberOfEpisodes):
+                values = (movies[random.randint(0, 84)], synopsis[random.randint(0, 92)], i, random.randint(0, 5), random.randint(0, 48), random.randint(1986, 2019), id)
+                cursor.execute(insert_query, values)
+                self.connector.commit()
+
 
     def getusers(self):
         query = "SELECT * FROM User"
