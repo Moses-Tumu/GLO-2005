@@ -727,15 +727,21 @@ def tvshowPage(typeTvShow,tvshowName):
 
 
 # type page
-@application.route('/movie/<string:typeMovie>')
+@application.route('/movies/<string:typeMovie>')
 def movieType(typeMovie):
     return render_template('movieType.html', titleType=typeMovie, movies=movies)
 
 
 # template for movie trailer
-@application.route('/movie/<string:typeMovie>/<string:movieName>')
-def moviePage(typeMovie,movieName):
-    return render_template('moviePage.html', titleName=movieName, titleType=typeMovie, movies=movies)
+@application.route('/movie/<string:movieid>')
+def moviePage(movieid):
+    thismovie = user_repo.getmoviebyid(movieid)
+
+    if thismovie is not None:
+        return render_template('moviePage.html', movie=thismovie)
+
+    return redirect('/home')
+
 
 
 @application.route('/login', methods=["GET"])
@@ -797,9 +803,9 @@ def favorite():
     return render_template('favorite.html', title='Favorite')
 
 
-@application.route('/getusers')
-def getusers():
-    return json.dumps({'users': user_repo.getusers()})
+@application.route('/addfavorite/<string:movieid>')
+def addfavorite(movieid):
+    user_repo.addToFavorite(current_user.get_id(), movieid)
 
 
 @application.route('/protected')
