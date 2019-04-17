@@ -12,3 +12,6 @@ Pour relancer les containers de manière a ce que les données MySQL, faire les 
 > docker-compose build
 > docker-compose up
 ```
+
+#
+###### En date du 17-04-19 02:27, tout fonctionnait sur [Docker Desktop for Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows), Windows 10 Professionnel version 1809
