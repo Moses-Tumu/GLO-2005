@@ -4,7 +4,7 @@
          {% for tvshow in tvshows%}
             {% if titleType == tvshow.type%}
             <div class="col-sm-4">
-                <a href="{{tvshow.type}}/{{tvshow.title}}"><img src={{tvshow.image}} class="rounded float-left" ></a>
+                <a href="{{tvshow.type}}/{{tvshow.title}}"><img src={{tvshow.imageUrl}} class="rounded float-left" ></a>
             </div>
             {%endif%}
         {% endfor %}
