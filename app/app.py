@@ -1,9 +1,6 @@
 from flask import Flask, render_template, request, redirect
 from flask_login import LoginManager,current_user, login_user, logout_user, login_required, UserMixin, AnonymousUserMixin
-from collections import defaultdict
-import random
 from infrastructure import DatabaseManager
-import json
 from hashlib import sha256
 
 application = Flask('GLO-2005')
@@ -28,7 +25,8 @@ class Anonymous(AnonymousUserMixin):
 def load_user(user_id):
     return User(user_id)
 
-tvshowCard=[
+
+tvshowCard = [
         {
          'type':'Drama',
          'description':"This is Us, Grey's Anatomy, Breaking Bad, The Walking Dead",
@@ -67,7 +65,7 @@ tvshowCard=[
         }
 ]
 
-movieCard=[
+movieCard = [
         {
          'type':'Action',
          'description':"Avengers, The Lord of the Rings, Indiana Jones, Rambo, Iron Man, The Hunger Games",
@@ -130,11 +128,13 @@ def tvshowType(typeTvShow):
     tvshow =database.getTvshowsByType(typeTvShow)
     return render_template('tvshowType.html', titleType=typeTvShow, tvshows=tvshow)
 
+
 @application.route('/tvshow/<string:showId>')
 def tvshowPage(showId):
     thisTvShow = database.getTvShowById(showId)
     episodes = database.getepisodes(showId)
     return render_template('tvshowPage.html', tvshow=thisTvShow, episodes=episodes)
+
 
 # type page
 @application.route('/movies/<string:typeMovie>')
@@ -253,4 +253,3 @@ def search():
 
 
 application.run('0.0.0.0', 5000)
-# application.run('127.0.0.1', 5000)
