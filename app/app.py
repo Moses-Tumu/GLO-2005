@@ -803,6 +803,7 @@ def list():
 def favorite():
     favorite_movies = user_repo.getfavoritemovie(current_user.id)
     favorite_shows = user_repo.getfavoriteshows(current_user.id)
+    print(favorite_movies)
     return render_template('favorite.html', title='Favorite', movies=favorite_movies, shows=favorite_shows)
 
 

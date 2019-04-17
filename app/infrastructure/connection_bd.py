@@ -168,14 +168,22 @@ class UserRepository:
         self.connector.commit()
 
     def addToFavorite(self, userid, movieid):
-        query = ("INSERT INTO FavoriteMovie (UserID, MovieID)"
-                 "VALUES (%s,%s)")
-        values = (userid, movieid)
+        select_query = ("SELECT * FROM FavoriteMovie WHERE UserID = %s AND MovieID = %s")
+        select_value = (userid, movieid)
 
         cursor = self.connector.cursor()
-        cursor.execute(query, values)
+        cursor.execute(select_query, select_value)
 
-        self.connector.commit()
+        movie = cursor.fetchall()
+
+        if len(movie) < 1:
+            query = ("INSERT INTO FavoriteMovie (UserID, MovieID)"
+                     "VALUES (%s,%s)")
+            values = (userid, movieid)
+
+            cursor.execute(query, values)
+
+            self.connector.commit()
 
     def getmoviebyid(self, movieid):
         query = ("SELECT * FROM Movie WHERE MovieId = %s")

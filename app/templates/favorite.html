@@ -1,10 +1,9 @@
 {% extends "index.html" %}
 {% block content %}
 
-{{favorite_movies}}
-{{favorite_shows}}
-    <table class="table">
-        <thead>
+<h2><font color="#006699">Favorite Movies</font></h2>
+    <table class="table table-striped">
+        <thead class="thead-dark">
             <tr>
                 <th></th>
                 <th>Title</th>
@@ -16,9 +15,9 @@
             </tr>
         </thead>
         <tbody>
-        {% for movie in favorite_movies %}
+        {% for movie in movies %}
             <tr>
-                <td><img src={{movie.synopsis}} class="img-thumbnail" ></td>
+                <td><img src={{movie.imageUrl}} class="img-thumbnail" ></td>
                 <td>{{movie.title}}</td>
                 <td>{{movie.synopsis}}</td>
                 <td>{{movie.length}}</td>
@@ -30,9 +29,9 @@
         </tbody>
     </table>
 
-
-    <table class="table">
-        <thead>
+<h2><font color="#006699">Favorite Shows</font></h2>
+    <table class="table table-striped">
+        <thead class="thead-dark">
             <tr>
                 <th></th>
                 <th>Title</th>
@@ -44,9 +43,9 @@
             </tr>
         </thead>
         <tbody>
-        {% for show in favorite_shows %}
+        {% for show in shows %}
             <tr>
-                <td><img src={{show.synopsis}} class="img-thumbnail" ></td>
+                <td><img src={{show.imageUrl}} class="img-thumbnail" ></td>
                 <td>{{show.title}}</td>
                 <td>{{show.synopsis}}</td>
                 <td>{{show.fromYear}}</td>
