@@ -9,7 +9,6 @@ COPY wait-for-it.sh /app
 RUN pip install -r requirements.txt
 
 COPY app.py /app
-COPY ./Image ./Image
 COPY ./infrastructure ./infrastructure
 COPY ./static ./static
 COPY ./templates ./templates
