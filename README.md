@@ -5,7 +5,7 @@
 4. Lancer le container → ``docker-compose up``
 
 #
-Pour relancer les containers de manière a ce que les données MySQL, faire les commande suivant :
+Pour relancer les containers de manière a ce que les scripts MySQL se relance, faire les commande suivant :
 ```
 > docker system prune --volumes
 > y
