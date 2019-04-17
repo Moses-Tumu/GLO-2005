@@ -113,8 +113,8 @@ class DatabaseManager:
         cursor = self.connector.cursor()
         cursor.execute(query)
 
-        return [{'Id': movie[1], 'Title': movie[1], 'Synopsis': movie[2], 'Length': movie[3], 'Year': movie[4],
-                 'Country': movie[5], 'MaturityRating': movie[6], 'ImageUrl': movie[7]} for movie in cursor]
+        return [{'id': movie[0], 'title': movie[1], 'synopsis': movie[2], 'length': movie[3], 'year': movie[4],
+                'country': movie[5], 'maturity': movie[6], 'imageUrl': movie[7], 'videoUrl': movie[8]} for movie in cursor]
 
     def getsomemovies(self):
         query = "SELECT * FROM Movie LIMIT 12"
@@ -122,8 +122,8 @@ class DatabaseManager:
         cursor = self.connector.cursor()
         cursor.execute(query)
 
-        return [{'Id': movie[0], 'Title': movie[1], 'Synopsis': movie[2], 'Length': movie[3], 'Year': movie[4],
-                 'Country': movie[5], 'MaturityRating': movie[6], 'ImageUrl': movie[7]} for movie in cursor]
+        return [{'id': movie[0], 'title': movie[1], 'synopsis': movie[2], 'length': movie[3], 'year': movie[4],
+                'country': movie[5], 'maturity': movie[6], 'imageUrl': movie[7], 'videoUrl': movie[8]} for movie in cursor]
 
     def getmoviesbytype(self, movietype):
         query = ("SELECT * FROM Movie "
@@ -134,8 +134,19 @@ class DatabaseManager:
         cursor = self.connector.cursor()
         cursor.execute(query, query_values)
 
-        return [{'Id': movie[0], 'Title': movie[1], 'Synopsis': movie[2], 'Length': movie[3], 'Year': movie[4],
-                 'Country': movie[5], 'MaturityRating': movie[6], 'ImageUrl': movie[7]} for movie in cursor]
+        return [{'id': movie[0], 'title': movie[1], 'synopsis': movie[2], 'length': movie[3], 'year': movie[4],
+                'country': movie[5], 'maturity': movie[6], 'imageUrl': movie[7], 'videoUrl': movie[8]} for movie in cursor]
+
+    def searchMovies(self, title):
+        query = ("SELECT * FROM Movie WHERE Movie.Title LIKE CONCAT('%', %s, '%')")
+
+        query_values = (title,)
+
+        cursor = self.connector.cursor()
+        cursor.execute(query, query_values)
+
+        return [{'id': movie[0], 'title': movie[1], 'synopsis': movie[2], 'length': movie[3], 'year': movie[4],
+                'country': movie[5], 'maturity': movie[6], 'imageUrl': movie[7], 'videoUrl': movie[8]} for movie in cursor]
 
     def gettvshows(self):
         query = "SELECT * FROM Shows"

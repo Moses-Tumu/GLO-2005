@@ -1,0 +1,17 @@
+{% extends "index.html" %}
+{% block content %}
+
+    {% for show in shows%}
+    <div class="col-sm-5 col-md-6">
+        <a href="/show/{{show.id}}"><img src={{show.imageUrl}} class="rounded float-left"  height="500" width="300"></a>
+        <h5><font color="#006699">{{ show.title }}</font></h5>
+    </div>
+    {% endfor %}
+
+    {% for movie in movies%}
+    <div class="col-sm-5 col-md-6">
+        <a href="/movie/{{movie.id}}"><img src={{movie.imageUrl}} class="rounded float-left"  height="500" width="300"></a>
+        <h5><font color="#006699">{{ movie.title }}</font></h5>
+    </div>
+    {% endfor %}
+{% endblock content %}

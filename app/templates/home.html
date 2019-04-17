@@ -2,7 +2,7 @@
 {% block content %}
     {%for homePageImage in homePageImage%}
     <div class="col-sm-5 col-md-6">
-        <a href="/movie/{{homePageImage.Id}}"><img src={{homePageImage.ImageUrl}} class="rounded float-left"  height="500" width="300"></a>
+        <a href="/movie/{{homePageImage.id}}"><img src={{homePageImage.imageUrl}} class="rounded float-left"  height="500" width="300"></a>
     </div>
     {%endfor%}
 {% endblock content %}

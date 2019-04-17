@@ -242,34 +242,13 @@ def protected():
     return "protected"
 
 
-# @application.route('/action')
-# def action():
-#     return render_template('action.html', title='Action')
-# @application.route('/fantasy')
-# def fantasy():
-#     return render_template('fantasy.html', title='Fantasy')
-# @application.route('/comedy')
-# def comedy():
-#     return render_template('comedy.html', title='Comedy')
+@application.route('/search', methods=["GET"])
+def search():
+    searchterm = request.values['searchterm']
+    shows = database.searchTvShow(searchterm)
+    movies = database.searchMovies(searchterm)
 
-# @application.route('/classics')
-# def classics():
-#     return render_template('classics.html', title='Classics')
-
-#
-# @application.route('/movies')
-# def movies():
-#     return "Great list of all movies"
-#
-#
-# @application.route('/shows')
-# def shows():
-#     return "Great list of all shows"
-#
-#
-# @application.route('/')
-# def ok():
-#     return "something Else"
+    return render_template('search.html', title='Search', shows=shows, movies=movies)
 
 
 application.run('0.0.0.0', 5000)
