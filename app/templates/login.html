@@ -1,37 +1,31 @@
 {% extends "index.html" %}
 {% block content %}
-<div id="particles-js"></div>
-<body class="login bg-dark">
-	<div class="container">
-		<div class="login-container-wrapper clearfix bg-dark">
+
+		<div class="login-container-wrapper bg-dark">
 			<div class="logo">
                 <i class="fas fa-user-circle"></i>
 			</div>
-			<div class="welcome"><strong>Welcome,</strong> please login</div>
+			<div><strong>Enter your information</strong></div>
 
-			<form class="form-horizontal login-form" action="/login" method="POST">
+			<form class="form-vertical bg-light" action="/login" method="POST">
 				<div class="form-group relative">
-					<input id="login_username" class="form-control input-lg" placeholder="Username" name="username" required>
-					<i class="fa fa-user"></i>
+					<input class="form-control input-lg" placeholder="Username" name="username" required>
 				</div>
-				<div class="form-group relative password">
-					<input id="login_password" class="form-control input-lg" type="password" placeholder="Password" name="password" required>
-					<i class="fa fa-lock"></i>
+				<div class="form-group bg-light">
+					<input class="form-control input-lg" type="password" placeholder="Password" name="password" required>
 				</div>
 			    <div class="form-group">
-			        <button type="submit" class="btn btn-default btn-lg btn-block">Login</button>
+			        <button type="submit" class="btn btn-default btn-lg btn-block  bg-light">Login </button>
 			    </div>
-                <div class="checkbox pull-left">
-			        <label><input type="checkbox"> Remember</label>
-			    </div>
-			    <div class="checkbox pull-right">
+				<div class="checkbox pull-right">
 			        <label> <a class="forget" href="" title="forget">Forgot your password</a> </label>
 			    </div>
+                <div class="checkbox pull-left">
+			        <label><input type="checkbox"> Remember me </label>
+			    </div>
+
 			</form>
 		</div>
-
-	</div>
-  </body>
 {% endblock content %}
 
 
