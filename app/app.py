@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect
 from flask_login import LoginManager,current_user, login_user, logout_user, login_required, UserMixin, AnonymousUserMixin
 from collections import defaultdict
 import random
-from infrastructure import UserRepository
+from infrastructure import DatabaseManager
 import json
 from hashlib import sha256
 
@@ -11,7 +11,7 @@ login_manager = LoginManager()
 login_manager.init_app(application)
 login_manager.login_view = ''
 application.config['SECRET_KEY'] = "justsomecasualsecretkeyveryuniqueandsecret"
-user_repo = UserRepository()
+database = DatabaseManager()
 
 
 class User(UserMixin):
@@ -27,32 +27,6 @@ class Anonymous(AnonymousUserMixin):
 @login_manager.user_loader
 def load_user(user_id):
     return User(user_id)
-
-## linkMovie={"KillBill":"","TheMatrix":"",
-##            "PulpFiction":"https://www.youtube.com/embed/s7EdQ4FqbhY","ForrestGump":"https://www.youtube.com/embed/uPIEn0M8su0",
-##            "HotFuzz":"https://www.youtube.com/embed/ayTnvVpj9t4","22JumpStreet":"https://www.youtube.com/embed/v9S_dYuq0vE",
-##             "ScaryMovie4":"https://www.youtube.com/embed/JxQNmNtCg0I","GameNight":"https://www.youtube.com/embed/fNtLIcyjsnI",
-##            "ExMachina":"","Chappie":"",
-##            "MenInBlack":""}
-
-homePageImage ={"https://streamondemandathome.com/wp-content/uploads/2016/08/Matrix-poster.jpg",
-                "https://stmed.net/sites/default/files/star-wars-episode-i%3A-the-phantom-menace-wallpapers-29924-6761173.jpg",
-                "https://hdqwalls.com/download/chappie-movie-hd-1024x768.jpg",
-                "https://gunaxin.com/wp-content/uploads/2012/06/Pulp-Fiction-pulp-fiction-8900005-1024-768.jpg",
-                "http://images1.fanpop.com/images/image_uploads/forest-forest-forrest-gump-1216093_1024_768.jpg",
-                "http://img.over-blog-kiwi.com/0/71/40/63/obpicJXkNax.jpeg",
-                "https://tylerroymediablog.files.wordpress.com/2016/04/22-js.jpg?w=1200&h=900",
-                "https://www.superiorpics.com/wallpaper/file/Anna_Faris_in_Scary_Movie_4_Wallpaper_1_1024.jpg",
-                "http://statelywallpaper.com/wp-content/uploads/2018/02/Game-Night-2018-1024x768.jpg",
-                "https://d13ezvd6yrslxm.cloudfront.net/wp/wp-content/images/ex-machina-vikander.jpg",
-                "https://cdn.kinepolis.com/fr/sites/kinepolis.be.fr/files/downloads/killbilluma1024x768.jpg",
-                "http://cdn3.momes.net/var/momes/storage/images/culture/films-pour-enfants/science-fiction/men-in-black/741848-4-fre-FR/Men-in-black.jpg"}
-
-
-imageMovieCatergory={"Action":"https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/1280px-Star_Wars_Logo.svg.png",
-            "Classics":"https://upload.wikimedia.org/wikipedia/commons/b/bc/Pulp_Fiction_Logo.png",
-            "Comedy":"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/21_Jump_Street.svg/1280px-21_Jump_Street.svg.png",
-            "Fantasy":"https://c1.staticflickr.com/8/7774/18027452780_f715b6cdf2_b.jpg"}
 
 tvshowCard=[
         {
@@ -93,82 +67,6 @@ tvshowCard=[
         }
 ]
 
-tvshowLink =[
-        {
-          'title':'Quantico',
-          'type':'Crime',
-          'link':['https://www.youtube.com/embed/wJp-BZpVBPA'],
-          'numberOfSeason':'1'
-        },
-        {
-          'title':'Quantico',
-          'type':'Crime',
-          'link':['https://www.youtube.com/embed/hywZueVX1ME'],
-          'numberOfSeason':'2'
-        },
-        {
-          'title':'Quantico',
-          'type':'Crime',
-          'link':['https://www.youtube.com/embed/uA7HHoOYSv4'],
-          'numberOfSeason':'3'
-        },
-        {
-          'title':'Scandal',
-          'type':'Crime',
-          'link':'https://www.youtube.com/embed/PhOR6DIS_Ho',
-          'numberOfSeason':'1'
-        },
-        {
-          'title':'Scandal',
-          'type':'Crime',
-          'link':'https://www.youtube.com/watch?v=ccFcQXS0k_o',
-          'numberOfSeason':'2'
-        },
-        {
-          'title':'Scandal',
-          'type':'Crime',
-          'link':'https://www.youtube.com/watch?v=r7OIfKg5XRQ',
-          'numberOfSeason':'3'
-        },
-                {
-          'title':'Scandal',
-          'type':'Crime',
-          'link':'https://www.youtube.com/watch?v=CaYsx1eAFdM',
-          'numberOfSeason':'4'
-        },
-        {
-          'title':'Scandal',
-          'type':'Crime',
-          'link':'https://www.youtube.com/watch?v=HhUscmYpRcY',
-          'numberOfSeason':'5'
-        },
-        {
-          'title':'Scandal',
-          'type':'Crime',
-          'link':'https://www.youtube.com/watch?v=OWOB1kuGJsQ',
-          'numberOfSeason':'6'
-        },
-        {
-          'title':'RookieBlue',
-          'type':'Crime',
-          'link':['https://www.youtube.com/watch?v=AI44Mhp02Ps','https://www.youtube.com/watch?v=JK_geMqHGjA',
-                  'https://www.youtube.com/watch?v=IIy1nKDbWrY'],
-          'numberOfSeason':'3'
-        },
-        {
-          'title':'SWAT',
-          'type':'Crime',
-          'link':['https://www.youtube.com/watch?v=LjN0p1xAZJY','https://www.youtube.com/watch?v=gZVm5D3_xws'],
-          'numberOfSeason':'2'
-        },
-        {
-          'title':'Dexter',
-          'type':'Crime',
-          'link':['https://www.youtube.com/watch?v=YQeUmSD1c3g','https://www.youtube.com/watch?v=0o3l6eHWRn4',
-                  'https://www.youtube.com/watch?v=T8bB6-BesqA'],
-          'numberOfSeason':'3'
-        }
-]
 movieCard=[
         {
          'type':'Action',
@@ -213,7 +111,8 @@ movieCard=[
 @application.route('/')
 @application.route('/home')
 def index():
-   return render_template('home.html', title="Un Titre", homePageImage=homePageImage)
+    movies = database.getsomemovies()
+    return render_template('home.html', title="Un Titre", homePageImage=movies)
 
 
 @application.route('/movie')
@@ -228,25 +127,25 @@ def tvshow():
 
 @application.route('/tvshows/<string:typeTvShow>')
 def tvshowType(typeTvShow):
-    tvshow =user_repo.getTvshowsByType(typeTvShow)
+    tvshow =database.getTvshowsByType(typeTvShow)
     return render_template('tvshowType.html', titleType=typeTvShow, tvshows=tvshow)
 
 @application.route('/tvshow/<string:showId>')
 def tvshowPage(showId):
-    thisTvShow = user_repo.getTvShowById(showId)
+    thisTvShow = database.getTvShowById(showId)
     return render_template('tvshowPage.html', tvshow=thisTvShow)
 
 # type page
 @application.route('/movies/<string:typeMovie>')
 def movieType(typeMovie):
-    movies = user_repo.getmoviesbytype(typeMovie)
+    movies = database.getmoviesbytype(typeMovie)
     return render_template('movieType.html', titleType=typeMovie, movies=movies)
 
 
 # template for movie trailer
 @application.route('/movie/<string:movieid>')
 def moviePage(movieid):
-    thismovie = user_repo.getmoviebyid(movieid)
+    thismovie = database.getmoviebyid(movieid)
 
     if thismovie is not None:
         return render_template('moviePage.html', movie=thismovie)
@@ -264,7 +163,7 @@ def log_user():
     username = request.form['username']
     password = request.form['password']
 
-    user = user_repo.getuser(username)
+    user = database.getuser(username)
 
     if user['password'] == sha256(password.encode()).hexdigest():
         user = load_user(user['id'])
@@ -294,8 +193,8 @@ def createuser():
 
     hashpwd = sha256(password.encode()).hexdigest()
 
-    user_repo.createuser(firstname, lastname, username, hashpwd)
-    connecteduser = user_repo.getuser(username)
+    database.createuser(firstname, lastname, username, hashpwd)
+    connecteduser = database.getuser(username)
 
     login_user(User(connecteduser['id']))
 
@@ -310,25 +209,31 @@ def list():
 @application.route('/favorite')
 @login_required
 def favorite():
-    favorite_movies = user_repo.getfavoritemovie(current_user.id)
-    favorite_shows = user_repo.getfavoriteshows(current_user.id)
+    favorite_movies = database.getfavoritemovie(current_user.id)
+    favorite_shows = database.getfavoriteshows(current_user.id)
     return render_template('favorite.html', title='Favorite', movies=favorite_movies, shows=favorite_shows)
 
 
 @application.route('/addfavorite/<string:movieid>')
 def addfavorite(movieid):
-    user_repo.addToFavorite(current_user.id, movieid)
+    if current_user.is_authenticated:
+        database.addToFavorite(current_user.id, movieid)
 
-    link = '/movie/' + movieid
-    return redirect(link)
+        link = '/movie/' + movieid
+        return redirect(link)
+
+    return redirect('/login')
 
 
 @application.route('/addfavoriteshow/<string:showid>')
 def addfavoriteshow(showid):
-    user_repo.addToFavoriteShow(current_user.id, showid)
+    if current_user.is_authenticated:
+        database.addToFavoriteShow(current_user.id, showid)
 
-    link = '/tvshow/' + showid
-    return redirect(link)
+        link = '/tvshow/' + showid
+        return redirect(link)
+
+    return redirect('/login')
 
 
 @application.route('/protected')

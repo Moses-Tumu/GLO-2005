@@ -1,1 +1,1 @@
-from infrastructure.connection_bd import UserRepository
+from infrastructure.connection_bd import DatabaseManager

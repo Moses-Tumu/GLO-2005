@@ -3,7 +3,7 @@
     <div class="row">
          {% for tvshow in tvshows%}
             <div class="col-sm-4">
-                <a href="/tvshow/{{tvshow.id}}"><img src={{tvshow.imageUrl}} class="rounded float-left" ></a>
+                <a href="/tvshow/{{tvshow.id}}"><img src={{tvshow.imageUrl}} class="rounded float-left"></a>
                 <h5><font color="#006699">{{ tvshow.title }}</font></h5>
             </div>
         {% endfor %}

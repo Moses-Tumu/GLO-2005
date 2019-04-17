@@ -23,8 +23,9 @@
         <li class="nav-item"><a class="nav-link" href="/home"> Home</a></li>
         <li class="nav-item"><a class="nav-link" href="/movie"><i class="fas fa-film"></i> Movies</a></li>
         <li class="nav-item"><a class="nav-link" href="/tvshow"> <i class="fas fa-tv"></i> TV Shows</a></li>
+        {% if current_user.is_authenticated %}
         <li class="nav-item"><a class="nav-link" href="/favorite"><i class="fas fa-bookmark"></i> Favorite</a></li>
-        <li class="nav-item"><a class="nav-link" href="/list"><i class="fas fa-list"></i> List</a></li>
+        {%endif%}
       </ul>
     </div>
 

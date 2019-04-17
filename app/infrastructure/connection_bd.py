@@ -4,11 +4,11 @@ import random
 import csv
 
 
-class UserRepository:
+class DatabaseManager:
     MYSQL_URI = 'db'
     PORT = '3306'
     USERNAME = 'root'
-    PASSWORD = None
+    PASSWORD = 'root'
     DATABASE_NAME = 'GLO2005'
 
 # TODO: Modifier les elements de retour pour retourner les bons éléments.
@@ -113,7 +113,16 @@ class UserRepository:
         cursor = self.connector.cursor()
         cursor.execute(query)
 
-        return [{'Title': movie[1], 'Synopsis': movie[2], 'Length': movie[3], 'Year': movie[4],
+        return [{'Id': movie[1], 'Title': movie[1], 'Synopsis': movie[2], 'Length': movie[3], 'Year': movie[4],
+                 'Country': movie[5], 'MaturityRating': movie[6], 'ImageUrl': movie[7]} for movie in cursor]
+
+    def getsomemovies(self):
+        query = "SELECT * FROM Movie LIMIT 12"
+
+        cursor = self.connector.cursor()
+        cursor.execute(query)
+
+        return [{'Id': movie[0], 'Title': movie[1], 'Synopsis': movie[2], 'Length': movie[3], 'Year': movie[4],
                  'Country': movie[5], 'MaturityRating': movie[6], 'ImageUrl': movie[7]} for movie in cursor]
 
     def getmoviesbytype(self, movietype):
