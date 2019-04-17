@@ -1,15 +1,13 @@
 {% extends "index.html" %}
 {% block content %}
-<div id="particles-js"></div>
-<body class="login bg-dark">
-	<div class="container">
-		<div class="login-container-wrapper clearfix bg-dark">
+
+		<div class="login-container-wrapper bg-dark">
 			<div class="logo">
                 <i class="fas fa-user-circle"></i>
 			</div>
 			<div><strong>Enter your information</strong></div>
 
-			<form class="form-horizontal bg-light" action="/login" method="POST">
+			<form class="form-vertical bg-light" action="/login" method="POST">
 				<div class="form-group relative">
 					<input class="form-control input-lg" placeholder="Username" name="username" required>
 				</div>
@@ -28,9 +26,6 @@
 
 			</form>
 		</div>
-
-	</div>
-  </body>
 {% endblock content %}
 
 
