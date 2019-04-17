@@ -1,3 +1,59 @@
 {% extends "index.html" %}
 {% block content %}
+
+<h2><font color="#006699">Favorite Movies</font></h2>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th></th>
+                <th>Title</th>
+                <th>Synopsis</th>
+                <th>Length</th>
+                <th>Year</th>
+                <th>Country</th>
+                <th>Maturity Rating</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for movie in movies %}
+            <tr>
+                <td><img src={{movie.imageUrl}} class="img-thumbnail" ></td>
+                <td>{{movie.title}}</td>
+                <td>{{movie.synopsis}}</td>
+                <td>{{movie.length}}</td>
+                <td>{{movie.year}}</td>
+                <td>{{movie.country}}</td>
+                <td>{{movie.maturity}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+<h2><font color="#006699">Favorite Shows</font></h2>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th></th>
+                <th>Title</th>
+                <th>Synopsis</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Country</th>
+                <th>Maturity Rating</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for show in shows %}
+            <tr>
+                <td><img src={{show.imageUrl}} class="img-thumbnail" ></td>
+                <td>{{show.title}}</td>
+                <td>{{show.synopsis}}</td>
+                <td>{{show.fromYear}}</td>
+                <td>{{show.toYear}}</td>
+                <td>{{show.country}}</td>
+                <td>{{show.maturity}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock content %}

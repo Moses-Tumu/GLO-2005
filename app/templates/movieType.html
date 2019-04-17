@@ -2,11 +2,10 @@
 {% block content %}
     <div class="row">
          {% for movie in movies%}
-            {% if titleType == movie.type%}
             <div class="col-sm-4">
-                <a href="{{movie.id}}"><img src={{movie.image}} class="rounded float-left" height="400" width="400"></a>
+                <a href="/movie/{{movie.Id}}"><img src={{movie.ImageUrl}} class="rounded float-left" height="400" width="400"></a>
+                <h5><font color="#006699">{{ movie.Title }}</font></h5>
             </div>
-            {%endif%}
         {% endfor %}
      </div>
 {% endblock content %}

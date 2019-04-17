@@ -15,4 +15,4 @@ COPY ./static ./static
 COPY ./templates ./templates
 COPY ./generate_table ./
 
-CMD python app.py
+CMD python -u app.py
