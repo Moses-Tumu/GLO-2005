@@ -2,11 +2,10 @@
 {% block content %}
     <div class="row">
          {% for tvshow in tvshows%}
-            {% if titleType == tvshow.type%}
             <div class="col-sm-4">
-                <a href="{{tvshow.type}}/{{tvshow.title}}"><img src={{tvshow.image}} class="rounded float-left" ></a>
+                <a href="/tvshow/{{tvshow.id}}"><img src={{tvshow.imageUrl}} class="rounded float-left" ></a>
+                <h5><font color="#006699">{{ tvshow.title }}</font></h5>
             </div>
-            {%endif%}
         {% endfor %}
      </div>
 {% endblock content %}

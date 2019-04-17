@@ -134,20 +134,22 @@ class UserRepository:
         cursor = self.connector.cursor()
         cursor.execute(query)
 
-        return [{'Title': tvshow[1], 'Synopsis': tvshow[2], 'FromYear': tvshow[3], 'ToYear': tvshow[4],
-                 'Country': tvshow[5], 'MaturityRating': tvshow[6], 'ImageUrl': tvshow[7]} for tvshow in cursor]
+        return [{'id':tvshow[0],'title':tvshow[1],'genreId':tvshow[2],'synopsis':tvshow[3],'fromYear':tvshow[4],
+                'toYear':tvshow[5],'country':tvshow[6],'maturityRating':tvshow[7],'imageUrl':tvshow[8],
+                 'videoUrl':tvshow[9]} for tvshow in cursor]
 
-    def gettvshows(self, type):
+    def getTvshowsByType(self, type):
         query = ("SELECT * FROM TvShow "
                  "JOIN Genre ON Genre.GenreId = TvShow.GenreId "
                  "WHERE Genre.Name = %s")
-        query_values = type
+        query_values = (type,)
 
         cursor = self.connector.cursor()
         cursor.execute(query, query_values)
 
-        return [{'Title': tvshow[1], 'Synopsis': tvshow[2], 'FromYear': tvshow[3], 'ToYear': tvshow[4],
-                 'Country': tvshow[5], 'MaturityRating': tvshow[6], 'ImageUrl': tvshow[7]} for tvshow in cursor]
+        return [{'id':tvshow[0],'title':tvshow[1],'genreId':tvshow[2],'synopsis':tvshow[3],'fromYear':tvshow[4],
+                'toYear':tvshow[5],'country':tvshow[6],'maturityRating':tvshow[7],'imageUrl':tvshow[8],
+                 'videoUrl':tvshow[9]} for tvshow in cursor]
 
     def getgenre(self):
         query = "SELECT * FROM Genre"
@@ -157,6 +159,29 @@ class UserRepository:
         cursor.execute(query, query_values)
 
         return [{'Name': genre[0]} for genre in cursor]
+
+    def searchTvShow(self, title):
+        query = ("SELECT * FROM TvShow "
+                 "WHERE TvShow.Title LIKE CONCAT('%', %s, '%')")
+
+        query_values = (title,)
+
+        cursor = self.connector.cursor()
+        cursor.execute(query, query_values)
+
+        return [{'id':tvshow[0],'title':tvshow[1],'genreId':tvshow[2],'synopsis':tvshow[3],'fromYear':tvshow[4],
+                'toYear':tvshow[5],'country':tvshow[6],'maturityRating':tvshow[7],'imageUrl':tvshow[8],
+                 'videoUrl':tvshow[9]} for tvshow in cursor]
+
+    def getTvShowById(self, showId):
+        query = ("SELECT * FROM TvShow WHERE TvShow.showId = %s")
+        values = (showId,)
+        cursor = self.connector.cursor()
+        cursor.execute(query, values)
+        tvshow=cursor.fetchone()
+
+        return {'id':tvshow[0],'title':tvshow[1],'genreId':tvshow[2],'synopsis':tvshow[3],'fromYear':tvshow[4],
+                'toYear':tvshow[5],'country':tvshow[6],'maturityRating':tvshow[7],'imageUrl':tvshow[8],'videoUrl':tvshow[9]}
 
     def createuser(self, firstname, lastname, username, password):
         query = ("INSERT INTO User (FirstName, LastName, UserName, Password)"
@@ -180,6 +205,23 @@ class UserRepository:
             query = ("INSERT INTO FavoriteMovie (UserID, MovieID)"
                      "VALUES (%s,%s)")
             values = (userid, movieid)
+
+            cursor.execute(query, values)
+
+            self.connector.commit()
+
+    def addToFavoriteShow(self, userid, showid):
+        select_query = ("SELECT * FROM FavoriteShow WHERE UserID = %s AND ShowID = %s")
+        select_value = (userid, showid)
+
+        cursor = self.connector.cursor()
+        cursor.execute(select_query, select_value)
+
+        movie = cursor.fetchall()
+
+        if len(movie) < 1:
+            query = ("INSERT INTO FavoriteShow (UserID, ShowID) VALUES (%s,%s)")
+            values = (userid, showid)
 
             cursor.execute(query, values)
 
