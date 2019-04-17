@@ -718,15 +718,19 @@ def tvshow():
 
 @application.route('/tvshow/<string:typeTvShow>')
 def tvshowType(typeTvShow):
-   tvshows =user_repo.getTvshowsByType(typeTvShow)
-   return render_template('tvshowType.html', titleType=typeTvShow, tvshows=tvshows)
+   tvshow =user_repo.getTvshowsByType(typeTvShow)
+   if tvshow is not None:
+        return render_template('tvshowType.html', titleType=typeTvShow, tvshows=tvshow)
+   return redirect('/home')
 
 
-@application.route('/tvshow/<string:typeTvShow>/<string:tvShowName>')
-def tvshowPage(typeTvShow,tvshowName):
+@application.route('/tvshow/<string:showId>')
+def tvshowPage(showId):
+    thisTvShow = user_repo.getTvShowById(showId)
 
-   return render_template('tvshowPage.html', titleName=tvshowName, titleType=typeTvShow, tvshowLink=tvshowLink)
-
+    if thisTvShow is not None:
+        return render_template('tvshowPage.html', tvshow=thisTvShow)
+    return redirect('/home')
 
 # type page
 @application.route('/movies/<string:typeMovie>')
@@ -846,6 +850,6 @@ def protected():
 #     return "something Else"
 
 
-application.run('0.0.0.0', 5000)
-# application.run('127.0.0.1', 5000)
+# application.run('0.0.0.0', 5000)
+application.run('127.0.0.1', 5000)
 

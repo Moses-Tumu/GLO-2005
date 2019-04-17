@@ -1,24 +1,22 @@
 {% extends "index.html" %}
 {% block content %}
-    {% for tvshowLink in tvshowLink%}
-        {%for numberOfSeason in tvshowLink.numberOfSeason%}
-            {% if titleName == tvshowLink.title %}
-                {% if titleType == tvshowLink.type%}
-            <div align="middle">
-                    <iframe width="560" height="315" src={{tvshowLink.link}} align = "middle" frameborder="0"
-                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen  ></iframe>
-            </div>
-               <div class="aside">
-                <ul class="navbar fixed-bottom navbar-light bg-dark">
-                    <a class="nav-link" onclick="addFavorite"><i class="fas fa-bookmark" style="font-size:30px;color:grey"></i></a>
-                    <a class="nav-link" onclick="addList"><i class="fas fa-plus" style="font-size:30px;color:grey"></i></a>
-                </ul>
-                </div>
-            {%endif%}
-        {%endif%}
-        {% endfor %}
-    {% endfor %}
+        <div class="container">
+        <h2><font color="#006699">{{ tvshow.title }}</font></h2>
+        <iframe width="560" height="315" src={{tvshow.videoUrl}} align = "middle"
+                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                 allowfullscreen  ></iframe>
+    </div>
+    <div class="aside">
+        <ul class="navbar fixed-bottom navbar-light bg-dark">
+            <a class="nav-link" href="/addfavorite/{{tvshow.id}}"><i class="fas fa-bookmark" style="font-size:30px;color:grey"></i></a>
+            <li>{{tvshow.Synopsis}}</li>
+            <li>{{tvshow.FromYear}}" - "{{tvshow.ToYear}}</li>
+            <li>{{tvshow.Country}}</li>
+            <li>{{tvshow.MaturityRating}}</li>
+            <a class="nav-link" href="/addList/{{tvshow.id}}"><i class="fas fa-plus" style="font-size:30px;color:grey"></i></a>
+        </ul>
+    </div>
+
 {% endblock content %}
 
 
