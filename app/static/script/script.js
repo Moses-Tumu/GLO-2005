@@ -3,3 +3,4 @@
 //    //location.href = document.getElementById('searchInBD').value;
 //    location.href = document.getElementById('searchInBD').value;
 //};
+

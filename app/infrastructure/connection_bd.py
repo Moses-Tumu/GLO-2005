@@ -60,11 +60,34 @@ class UserRepository:
             images.append(image.readline())
         for x in range(0, 93):
             synopsis.append(syno.readline())
-        sql = "INSERT INTO Movie (Title, GenreId, Synopsis, Length, Year, Country, MaturityRating, VideoUrl ,ImageUrl) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        sql = ("INSERT INTO Movie (Title, GenreId, Synopsis, Length, Year, Country, MaturityRating, VideoUrl ,ImageUrl)"
+               "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)")
         for x in range(0, 150):
-            val = (movies[random.randint(0, 84)], random.randint(1, 10), synopsis[random.randint(0, 92)], str(random.randint(0, 10)), str(random.randint(1990, 2015)), countrys[random.randint(0, 99)], str(random.randint(7, 18)), 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', images[random.randint(0, 15)])
+            val = (movies[random.randint(0, 84)], random.randint(1, 10), synopsis[random.randint(0, 92)],
+                   str(random.randint(0, 10)), random.randint(1990, 2015), countrys[random.randint(0, 99)],
+                   str(random.randint(7, 18)), 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+                   images[random.randint(0, 15)])
             cursor.execute(sql, val)
             self.connector.commit()
+
+    # Ajout d'episodes
+        select_query = ("SELECT ShowId FROM TvShow")
+        cursor.execute(select_query)
+
+        foundIds = [{'Id': shows[0]} for shows in cursor]
+
+        for show in foundIds:
+            id = show['Id']
+
+            insert_query = ("INSERT INTO Episode (Title, Synopsis, EpisodeNo, SeasonNo, Length, FirstAirDate, ShowId)"
+                            "VALUES(%s,%s,%s,%s,%s,%s,%s)")
+            numberOfEpisodes = random.randint(1, 9)
+
+            for i in range(numberOfEpisodes):
+                values = (movies[random.randint(0, 84)], synopsis[random.randint(0, 92)], i, random.randint(0, 5),
+                          random.randint(0, 48), random.randint(1986, 2019), id)
+                cursor.execute(insert_query, values)
+                self.connector.commit()
 
 
     def getusers(self):
@@ -135,6 +158,7 @@ class UserRepository:
 
         return [{'Name': genre[0]} for genre in cursor]
 
+
     def searchTvShow(self,title):
         query = ("SELECT * FROM TvShow"
                 "WHERE TvShow.Title LIKE CONCAT('%', %s, '%')")
@@ -157,3 +181,38 @@ class UserRepository:
 
         return {'id':tvshow[0],'title':tvshow[1],'genreId':tvshow[2],'synopsis':tvshow[3],'fromYear':tvshow[4],
                 'toYear':tvshow[5],'country':tvshow[6],'maturityRating':tvshow[7],'imageUrl':tvshow[8],'videoUrl':tvshow[9]}
+
+    def createuser(self, firstname, lastname, username, password):
+        query = ("INSERT INTO User (FirstName, LastName, UserName, Password)"
+                 "VALUES(%s,%s,%s,%s)")
+        values = (firstname, lastname, username, password)
+
+        cursor = self.connector.cursor()
+        cursor.execute(query, values)
+        self.connector.commit()
+
+    def addToFavorite(self, username, movieid):
+        user = self.getuser(username)
+        query = ("INSERT INTO FavoriteMovie (UserID, MovieID)"
+                 "VALUES (%s,%s)")
+        values = (user['id'], movieid)
+
+        cursor = self.connector.cursor()
+        cursor.execute(query, values)
+
+        self.connector.commit()
+
+    def getmoviebyid(self, movieid):
+        query = ("SELECT * FROM Movie WHERE MovieId = %s")
+        values = (movieid,)
+
+        cursor = self.connector.cursor()
+        cursor.execute(query, values)
+        movie = cursor.fetchone()
+        print(movie)
+        if movie is not None:
+            return {'id': movie[0], 'title': movie[1], 'synopsis': movie[2], 'length': movie[3], 'year': movie[4],
+                    'country': movie[5], 'maturity': movie[6], 'imageUrl': movie[7], 'videoUrl': movie[8]}
+
+        return None
+

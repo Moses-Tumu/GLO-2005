@@ -2,47 +2,34 @@
 {% block content %}
 <div class="container">
   <h2><font color="#006699">Create a new account</font></h2>
-  <form class="form" action="#" >
+  <form class="form" action="/createaccount" method="POST" >
 
      <fieldset class="form-fieldset">
         <label for="firstName">
         <span data-text="FirstName">First Name</span>
         </label>
-         <input type="text" id="firstName" tabindex="0" class="form-control" />
+         <input type="text" id="firstName" tabindex="0" class="form-control" name="firstname" required="true"/>
      </fieldset>
 
       <fieldset class="form-fieldset">
         <label for="surname">
         <span data-text="Surname">Surname</span>
         </label>
-         <input type="text" id="surname" tabindex="0" class="form-control" />
+         <input type="text" id="surname" tabindex="0" class="form-control" name="lastname" required="true"/>
      </fieldset>
-      <fieldset class="form-fieldset">
-          <label for="username">
-            <span data-text="Username">Username</span>
-          </label>
-          <input type="text" id="username" tabindex="0" class="form-control"/>
-      </fieldset>
 
     <fieldset class="form-fieldset ui-input __first ">
         <label for="email">
             <span data-text="E-mail Address">E-mail Address</span>
         </label>
-        <input type="email" id="email" tabindex="0" class="form-control"/>
+        <input type="email" id="email" tabindex="0" class="form-control" name="username" required="true"/>
     </fieldset>
 
     <fieldset class="form-fieldset">
       <label for="new-password">
         <span data-text="New Password">New Password</span>
       </label>
-      <input type="password" id="new-password" class="form-control"/>
-    </fieldset>
-
-    <fieldset class="form-fieldset">
-      <label for="repeat-new-password">
-        <span data-text="Repeat New Password">Repeat New Password</span>
-      </label>
-      <input type="password" id="repeat-new-password" class="form-control"/>
+      <input type="password" id="new-password" class="form-control" name="password" required="true"/>
     </fieldset>
 
     <div class="form-footer">

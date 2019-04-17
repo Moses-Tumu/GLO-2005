@@ -33,6 +33,7 @@
             <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
         {% else %}
             <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+            <li class="nav-item"><a class="nav-link" href="/createaccount">Create Account</a></li>
         {%endif%}
 
     </ul>
@@ -58,6 +59,6 @@
         <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
         <script src="{{ url_for('static', filename='jquery/jquery.min.js') }}"></script>
         <script src="{{ url_for('static', filename='jquery-ui/jquery-ui.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.bundle.js ')}}"></script>
+        <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.bundle.js')}}"></script>
     </body>
 </html>
