@@ -116,16 +116,16 @@ class UserRepository:
         return [{'Title': movie[1], 'Synopsis': movie[2], 'Length': movie[3], 'Year': movie[4],
                  'Country': movie[5], 'MaturityRating': movie[6], 'ImageUrl': movie[7]} for movie in cursor]
 
-    def getmovies(self, type):
+    def getmoviesbytype(self, movietype):
         query = ("SELECT * FROM Movie "
                  "JOIN Genre ON Genre.GenreId = Movie.GenreId "
                  "WHERE Genre.Name = %s")
-        query_values = type
+        query_values = (movietype,)
 
         cursor = self.connector.cursor()
         cursor.execute(query, query_values)
 
-        return [{'Title': movie[1], 'Synopsis': movie[2], 'Length': movie[3], 'Year': movie[4],
+        return [{'Id': movie[0], 'Title': movie[1], 'Synopsis': movie[2], 'Length': movie[3], 'Year': movie[4],
                  'Country': movie[5], 'MaturityRating': movie[6], 'ImageUrl': movie[7]} for movie in cursor]
 
     def gettvshows(self):
