@@ -133,7 +133,8 @@ def tvshowType(typeTvShow):
 @application.route('/tvshow/<string:showId>')
 def tvshowPage(showId):
     thisTvShow = database.getTvShowById(showId)
-    return render_template('tvshowPage.html', tvshow=thisTvShow)
+    episodes = database.getepisodes(showId)
+    return render_template('tvshowPage.html', tvshow=thisTvShow, episodes=episodes)
 
 # type page
 @application.route('/movies/<string:typeMovie>')

@@ -37,11 +37,38 @@
             </tbody>
         </table>
     </div>
+    <div class="row">
+        <h2><font color="#006699">Episodes</font></h2>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th>Title</th>
+                <th>Synopsis</th>
+                <th>Season</th>
+                <th>Episode</th>
+                <th>Length</th>
+                <th>First Air Date</th>
+            </tr>
+            </thead>
+            <tbody>
+         {% for episode in episodes%}
+            <tr>
+                <td>{{episode.title}}</td>
+                <td>{{episode.synopsis}}</td>
+                <td>{{episode.seasonNo}}</td>
+                <td>{{episode.episodeNo}}</td>
+                <td>{{episode.length}}</td>
+                <td>{{episode.firstAirDate}}</td>
+            </tr>
+        {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
 
     <div class="aside">
         <ul class="navbar fixed-bottom navbar-light bg-dark">
-            <a class="nav-link" href="/addfavoriteshow/{{tvshow.id}}">Add to Favorite<i class="fas fa-bookmark" style="font-size:30px;color:grey"></i></a>
+            <a class="nav-link" href="/addfavoriteshow/{{tvshow.id}}"><i class="fas fa-bookmark" style="font-size:30px;color:grey"></i> Add to Favorite</a>
         </ul>
     </div>
 

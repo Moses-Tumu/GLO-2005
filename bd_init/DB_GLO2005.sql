@@ -33,7 +33,8 @@ CREATE TABLE Movie (
  MaturityRating VARCHAR(255),
  ImageUrl VARCHAR(255),
  VideoUrl VARCHAR(255),
- PRIMARY KEY (ShowId));
+ PRIMARY KEY (ShowId),
+ FOREIGN KEY (GenreId) REFERENCES Genre(GenreId));
  
  CREATE TABLE Episode (
  EpisodeId INT NOT NULL AUTO_INCREMENT,

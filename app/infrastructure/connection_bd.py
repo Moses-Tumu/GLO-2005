@@ -285,3 +285,17 @@ class DatabaseManager:
         return [{'id': tvshow[0], 'title': tvshow[1], 'genreId': tvshow[2], 'synopsis': tvshow[3], 'fromYear':tvshow[4],
                 'toYear': tvshow[5], 'country': tvshow[6], 'maturityRating': tvshow[7], 'imageUrl': tvshow[8],
                  'videoUrl': tvshow[9]} for tvshow in cursor]
+
+    def getepisodes(self, showid):
+        query = ("SELECT E.* FROM Episode E "
+                 "JOIN TvShow T ON E.ShowId = T.ShowId "
+                 "WHERE T.ShowId = %s "
+                 "ORDER BY E.SeasonNo, E.EpisodeNo")
+        value = (showid,)
+
+        cursor = self.connector.cursor()
+        cursor.execute(query, value)
+
+        return [{'episodeId': episode[0], 'title': episode[1], 'synopsis': episode[2], 'episodeNo': episode[3],
+                 'seasonNo': episode[4], 'length': episode[5], 'firstAirDate': episode[6], 'showId': episode[7]}
+                for episode in cursor]
