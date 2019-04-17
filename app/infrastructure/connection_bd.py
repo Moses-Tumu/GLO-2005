@@ -93,11 +93,11 @@ class UserRepository:
         return [{'Title': movie[1], 'Synopsis': movie[2], 'Length': movie[3], 'Year': movie[4],
                  'Country': movie[5], 'MaturityRating': movie[6], 'ImageUrl': movie[7]} for movie in cursor]
 
-    def getmovies(self, type):
+    def getMoviesByType(self, type):
         query = ("SELECT * FROM Movie "
                  "JOIN Genre ON Genre.GenreId = Movie.GenreId"
                  "WHERE Genre.Name = %s")
-        query_values = type
+        query_values = (type,)
 
         cursor = self.connector.cursor()
         cursor.execute(query, query_values)
@@ -114,11 +114,11 @@ class UserRepository:
         return [{'Title': tvshow[1], 'Synopsis': tvshow[2], 'FromYear': tvshow[3], 'ToYear': tvshow[4],
                  'Country': tvshow[5], 'MaturityRating': tvshow[6], 'ImageUrl': tvshow[7]} for tvshow in cursor]
 
-    def gettvshows(self, type):
+    def getTvshowsByType(self, type):
         query = ("SELECT * FROM TvShow "
                  "JOIN Genre ON Genre.GenreId = TvShow.GenreId"
                  "WHERE Genre.Name = %s")
-        query_values = type
+        query_values = (type,)
 
         cursor = self.connector.cursor()
         cursor.execute(query, query_values)
@@ -134,3 +134,26 @@ class UserRepository:
         cursor.execute(query, query_values)
 
         return [{'Name': genre[0]} for genre in cursor]
+
+    def searchTvShow(self,title):
+        query = ("SELECT * FROM TvShow"
+                "WHERE TvShow.Title LIKE CONCAT('%', %s, '%')")
+
+        query_values = (title,)
+
+        cursor = self.connector.cursor()
+        cursor.execute(query, query_values)
+
+        return [{'Title': tvshow[1], 'Synopsis': tvshow[2], 'FromYear': tvshow[3], 'ToYear': tvshow[4],
+                 'Country': tvshow[5], 'MaturityRating': tvshow[6], 'ImageUrl': tvshow[7]} for tvshow in cursor]
+
+    def getTvShowById(self, showId):
+        query = ("SELECT * FROM TvShow"
+                "WHERE TvShow.showId = %s")
+        values = (showId,)
+        cursor = self.connector.cursor()
+        cursor.execute(query, values)
+        tvshow=cursor.fetchone()
+
+        return {'id':tvshow[0],'title':tvshow[1],'genreId':tvshow[2],'synopsis':tvshow[3],'fromYear':tvshow[4],
+                'toYear':tvshow[5],'country':tvshow[6],'maturityRating':tvshow[7],'imageUrl':tvshow[8],'videoUrl':tvshow[9]}
