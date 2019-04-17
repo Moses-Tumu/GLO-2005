@@ -170,7 +170,6 @@ tvshowLink =[
         }
 ]
 
-
 tvshows = [
         {
         'type':'Drama',
@@ -422,7 +421,7 @@ movieCard=[
          'image':'https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F51449083%2F31016718777%2F1%2Foriginal.jpg?h=200&w=450&auto=compress&rect=0%2C0%2C800%2C400&s=aa335998344a7612b34b8efef4892a78'
         },
         {
-         'type':'Kids',
+         'type':'Cartoon',
          'description':"Christopher Robin, Harry Potter and the Philosopher's Stone, Charlie and the Chocolate Factory,"
                        " Monster House, Over the Hedge, Big Hero 6",
          'textInButton':"See Kids",
@@ -539,6 +538,7 @@ def list():
 
 
 @application.route('/favorite')
+@login_required
 def favorite():
     favorite_movies = user_repo.getfavoritemovie(current_user.id)
     favorite_shows = user_repo.getfavoriteshows(current_user.id)
