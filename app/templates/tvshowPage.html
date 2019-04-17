@@ -1,14 +1,47 @@
 {% extends "index.html" %}
 {% block content %}
-        <div class="container">
+    <div class="row">
         <h2><font color="#006699">{{ tvshow.title }}</font></h2>
-        <iframe width="560" height="315" src={{tvshow.videoUrl}} align = "middle"
-                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                 allowfullscreen  ></iframe>
     </div>
+
+    <div class="row">
+        <iframe width="560" height="315" src={{tvshow.videoUrl}} align = "middle"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen  ></iframe>
+
+    </div>
+
+    <div class="row">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th></th>
+                <th>Title</th>
+                <th>Synopsis</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Country</th>
+                <th>Maturity Rating</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><img src={{tvshow.imageUrl}} class="img-thumbnail" ></td>
+                <td>{{tvshow.title}}</td>
+                <td>{{tvshow.synopsis}}</td>
+                <td>{{tvshow.fromYear}}</td>
+                <td>{{tvshow.toYear}}</td>
+                <td>{{tvshow.country}}</td>
+                <td>{{tvshow.maturityRating}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
     <div class="aside">
         <ul class="navbar fixed-bottom navbar-light bg-dark">
-            <a class="nav-link" href="/addfavoriteshow/{{tvshow.id}}"><i class="fas fa-bookmark" style="font-size:30px;color:grey"></i></a>
+            <a class="nav-link" href="/addfavoriteshow/{{tvshow.id}}">Add to Favorite<i class="fas fa-bookmark" style="font-size:30px;color:grey"></i></a>
         </ul>
     </div>
 

@@ -1,9 +1,9 @@
 {% extends "index.html" %}
 {% block content %}
-
-<h2><font color="#006699">Favorite Movies</font></h2>
-    <table class="table table-striped">
-        <thead class="thead-dark">
+    <div class="row">
+        <h2><font color="#006699">Favorite Movies</font></h2>
+        <table class="table table-striped">
+            <thead class="thead-dark">
             <tr>
                 <th></th>
                 <th>Title</th>
@@ -13,9 +13,9 @@
                 <th>Country</th>
                 <th>Maturity Rating</th>
             </tr>
-        </thead>
-        <tbody>
-        {% for movie in movies %}
+            </thead>
+            <tbody>
+            {% for movie in movies %}
             <tr>
                 <td><img src={{movie.imageUrl}} class="img-thumbnail" ></td>
                 <td>{{movie.title}}</td>
@@ -25,13 +25,15 @@
                 <td>{{movie.country}}</td>
                 <td>{{movie.maturity}}</td>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-<h2><font color="#006699">Favorite Shows</font></h2>
-    <table class="table table-striped">
-        <thead class="thead-dark">
+    <div class="row">
+        <h2><font color="#006699">Favorite Shows</font></h2>
+        <table class="table table-striped">
+            <thead class="thead-dark">
             <tr>
                 <th></th>
                 <th>Title</th>
@@ -41,9 +43,9 @@
                 <th>Country</th>
                 <th>Maturity Rating</th>
             </tr>
-        </thead>
-        <tbody>
-        {% for show in shows %}
+            </thead>
+            <tbody>
+            {% for show in shows %}
             <tr>
                 <td><img src={{show.imageUrl}} class="img-thumbnail" ></td>
                 <td>{{show.title}}</td>
@@ -51,9 +53,11 @@
                 <td>{{show.fromYear}}</td>
                 <td>{{show.toYear}}</td>
                 <td>{{show.country}}</td>
-                <td>{{show.maturity}}</td>
+                <td>{{show.maturityRating}}</td>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
 {% endblock content %}

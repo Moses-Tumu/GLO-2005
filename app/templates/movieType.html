@@ -4,7 +4,7 @@
          {% for movie in movies%}
             <div class="col-sm-4">
                 <a href="/movie/{{movie.id}}"><img src={{movie.imageUrl}} class="rounded float-left"></a>
-                <h5><font color="#006699">{{ movie.Title }}</font></h5>
+                <h5><font color="#006699">{{ movie.title }}</font></h5>
             </div>
         {% endfor %}
      </div>

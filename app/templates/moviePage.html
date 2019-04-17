@@ -1,15 +1,44 @@
 {% extends "index.html" %}
 {% block content %}
 
-    <div class="container">
-        <h2><font color="#006699">{{ movie.title }}</font></h2>
+    <div class="row"><h2><font color="#006699">{{ movie.title }}</font></h2></div>
+
+    <div class="row">
         <iframe width="560" height="315" src={{movie.videoUrl}} align = "middle"
                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                  allowfullscreen  ></iframe>
     </div>
+
+    <div class="row">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th></th>
+                    <th>Title</th>
+                    <th>Synopsis</th>
+                    <th>Length</th>
+                    <th>Year</th>
+                    <th>Country</th>
+                    <th>Maturity Rating</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><img src={{movie.imageUrl}} class="img-thumbnail" ></td>
+                    <td>{{movie.title}}</td>
+                    <td>{{movie.synopsis}}</td>
+                    <td>{{movie.length}}</td>
+                    <td>{{movie.year}}</td>
+                    <td>{{movie.country}}</td>
+                    <td>{{movie.maturity}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
     <div class="aside">
         <ul class="navbar fixed-bottom navbar-light bg-dark">
-            <a class="nav-link" href="/addfavorite/{{movie.id}}"><i class="fas fa-bookmark" style="font-size:30px;color:grey"></i></a>
+            <a class="nav-link" href="/addfavorite/{{movie.id}}">Add to Favorite<i class="fas fa-bookmark" style="font-size:30px;color:grey"></i></a>
         </ul>
     </div>
 {% endblock content %}
