@@ -118,7 +118,7 @@ class UserRepository:
 
     def getmovies(self, type):
         query = ("SELECT * FROM Movie "
-                 "JOIN Genre ON Genre.GenreId = Movie.GenreId"
+                 "JOIN Genre ON Genre.GenreId = Movie.GenreId "
                  "WHERE Genre.Name = %s")
         query_values = type
 
@@ -139,7 +139,7 @@ class UserRepository:
 
     def gettvshows(self, type):
         query = ("SELECT * FROM TvShow "
-                 "JOIN Genre ON Genre.GenreId = TvShow.GenreId"
+                 "JOIN Genre ON Genre.GenreId = TvShow.GenreId "
                  "WHERE Genre.Name = %s")
         query_values = type
 
@@ -167,11 +167,10 @@ class UserRepository:
         cursor.execute(query, values)
         self.connector.commit()
 
-    def addToFavorite(self, username, movieid):
-        user = self.getuser(username)
+    def addToFavorite(self, userid, movieid):
         query = ("INSERT INTO FavoriteMovie (UserID, MovieID)"
                  "VALUES (%s,%s)")
-        values = (user['id'], movieid)
+        values = (userid, movieid)
 
         cursor = self.connector.cursor()
         cursor.execute(query, values)
@@ -185,9 +184,34 @@ class UserRepository:
         cursor = self.connector.cursor()
         cursor.execute(query, values)
         movie = cursor.fetchone()
-        print(movie)
-        if movie is not None:
-            return {'id': movie[0], 'title': movie[1], 'synopsis': movie[2], 'length': movie[3], 'year': movie[4],
-                    'country': movie[5], 'maturity': movie[6], 'imageUrl': movie[7], 'videoUrl': movie[8]}
 
-        return None
+        return {'id': movie[0], 'title': movie[1], 'synopsis': movie[2], 'length': movie[3], 'year': movie[4],
+                'country': movie[5], 'maturity': movie[6], 'imageUrl': movie[7], 'videoUrl': movie[8]}
+
+    def getfavoritemovie(self, userId):
+        query = ("SELECT M.* FROM Movie M "
+                 "JOIN FavoriteMovie F ON M.MovieId = F.MovieID "
+                 "JOIN User U ON U.UserId = F.UserID "
+                 "WHERE U.UserId = %s")
+        value = (userId,)
+
+        cursor = self.connector.cursor()
+        cursor.execute(query, value)
+
+        return [{'id': movie[0], 'title': movie[1], 'synopsis': movie[2], 'length': movie[3], 'year': movie[4],
+                'country': movie[5], 'maturity': movie[6], 'imageUrl': movie[7], 'videoUrl': movie[8]}
+                for movie in cursor]
+
+    def getfavoriteshows(self, userId):
+        query = ("SELECT M.* FROM TvShow M "
+                 "JOIN FavoriteShow F ON M.ShowId = F.ShowID "
+                 "JOIN User U ON U.UserId = F.UserID "
+                 "WHERE U.UserId = %s")
+        value = (userId,)
+
+        cursor = self.connector.cursor()
+        cursor.execute(query, value)
+
+        return [{'id': tvshow[0], 'title': tvshow[1], 'genreId': tvshow[2], 'synopsis': tvshow[3], 'fromYear':tvshow[4],
+                'toYear': tvshow[5], 'country': tvshow[6], 'maturityRating': tvshow[7], 'imageUrl': tvshow[8],
+                 'videoUrl': tvshow[9]} for tvshow in cursor]

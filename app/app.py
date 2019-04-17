@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect
-from flask_login import LoginManager,current_user, login_user, logout_user, login_required, UserMixin
+from flask_login import LoginManager,current_user, login_user, logout_user, login_required, UserMixin, AnonymousUserMixin
 from collections import defaultdict
 import random
 from infrastructure import UserRepository
@@ -15,13 +15,18 @@ user_repo = UserRepository()
 
 
 class User(UserMixin):
-    def __init__(self, username):
-        self.id = username
+    def __init__(self, id):
+        self.id = id
+
+
+class Anonymous(AnonymousUserMixin):
+    def __init__(self):
+        self.username = 'Guest'
 
 
 @login_manager.user_loader
-def load_user(user_username):
-    return User(user_username)
+def load_user(user_id):
+    return User(user_id)
 
 ## linkMovie={"KillBill":"","TheMatrix":"",
 ##            "PulpFiction":"https://www.youtube.com/embed/s7EdQ4FqbhY","ForrestGump":"https://www.youtube.com/embed/uPIEn0M8su0",
@@ -701,8 +706,6 @@ favorite =[
 @application.route('/')
 @application.route('/home')
 def index():
-   #imageOne =random(homePageImage)
-   #imageTwo=random(homePageImage)
    return render_template('home.html', title="Un Titre", homePageImage=homePageImage)
 
 
@@ -743,7 +746,6 @@ def moviePage(movieid):
     return redirect('/home')
 
 
-
 @application.route('/login', methods=["GET"])
 def login():
     return render_template('login.html', title='Login Page')
@@ -753,13 +755,12 @@ def login():
 def log_user():
     username = request.form['username']
     password = request.form['password']
-    print(password)
 
     user = user_repo.getuser(username)
-    print(user)
 
     if user['password'] == sha256(password.encode()).hexdigest():
-        login_user(User(username))
+        user = load_user(user['id'])
+        login_user(user)
         return redirect('/home')
     else:
         return render_template('login.html', title='Login Page')
@@ -788,7 +789,7 @@ def createuser():
     user_repo.createuser(firstname, lastname, username, hashpwd)
     connecteduser = user_repo.getuser(username)
 
-    login_user(User(connecteduser['username']))
+    login_user(User(connecteduser['id']))
 
     return redirect('/home')
 
@@ -800,12 +801,17 @@ def list():
 
 @application.route('/favorite')
 def favorite():
-    return render_template('favorite.html', title='Favorite')
+    favorite_movies = user_repo.getfavoritemovie(current_user.id)
+    favorite_shows = user_repo.getfavoriteshows(current_user.id)
+    return render_template('favorite.html', title='Favorite', movies=favorite_movies, shows=favorite_shows)
 
 
 @application.route('/addfavorite/<string:movieid>')
 def addfavorite(movieid):
-    user_repo.addToFavorite(current_user.get_id(), movieid)
+    user_repo.addToFavorite(current_user.id, movieid)
+
+    link = '/movie/' + movieid
+    return redirect(link)
 
 
 @application.route('/protected')
